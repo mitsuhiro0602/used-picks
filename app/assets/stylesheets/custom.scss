@@ -68,39 +68,6 @@ body {
   }
 }
 
-//サインアップ
-.signuppage {
-  margin-top: 10vh;
-  .titlearea {
-    text-align: center;
-    h1 {
-      font-size: 2rem;
-    }
-  }
-  .signupform {
-    .form-group {
-      margin: 0 auto 1.5rem auto;
-      max-width: 500px;
-      .form-control {
-        background: #f6f8fa;
-        margin-top: 10px;
-      }
-    }
-  }
-  .submitBtn {
-    background: #29b744;
-    color: #fff;
-    width: 200px;
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 90px;
-    transition: opacity .5s;
-    &:hover {
-      opacity: .6;
-    }
-  }
-}
-
 //devise_shared_links
 .accountPage_link {
   & > a {
