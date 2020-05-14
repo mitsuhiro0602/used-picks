@@ -1,0 +1,30 @@
+.item-container
+  .item-head
+    %h2.item-head__header
+      商品情報を入力
+  .item-main
+    = form_for @item, class: 'item-main__form', url: {action: 'new'} do |f|
+      .item-main__box
+        .upload-box
+          .item-main__header
+            %h3.upload-__head
+              = f.label :image, "出品画像"
+            %span.form-require
+              必須
+          %p.upload-box__text
+            最大10枚までアップロードできます
+            -# 画像アップロード記述
+          .item_dropbox
+            .image-box__container
+              #image-box-1
+              .item-num-0#image-box__container
+              = f.fields_for :images do |i|
+                .input-area
+                  = i.file_field :images, type:'file', name: "item[images_attributes][][image_url]", value:"image_url", style: "display:none", id:"img-file", required: true
+                  %label.input{for: "img-file"}
+                    %i.fas.fa-camera
+                    .item_dropbox__text
+                      クリックしてファイルをアップロード
+
+
+                
