@@ -4,7 +4,7 @@ class ItemController < ApplicationController
       @items = Item.includes(:images).order('created_at DESC')
     end
 
-    def new
+    def step1
       @item = Item.new
       @item.images.new
     end

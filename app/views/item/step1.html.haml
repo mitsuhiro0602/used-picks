@@ -3,7 +3,7 @@
     %h2.item-head__header
       商品情報を入力
   .item-main
-    = form_for @item, class: 'item-main__form', url: {action: 'new'} do |f|
+    = form_for @item, url: step2_item_index_path, method: :post, class: 'item-main__form' do |f|
       .item-main__box
         .upload-box
           .item-main__header
@@ -44,7 +44,7 @@
               %span.form-require
                 必須
             .item-main__content-category
-              = f.collection_select :category_id, @category_parent_array, :id, :name, prompt: "---", class: 'item-main__content-select-default', id: 'parent_category'
+              -# = f.collection_select :category_id, @category_parent_array, :id, :name, prompt: "---", class: 'item-main__content-select-default', id: 'parent_category'
           -# ブランド名選択
           .item-main__content-form-group
             .item-main__content-head
@@ -53,7 +53,7 @@
               %span.form-elective
                 任意
               .item-main__content-select
-                = f.collection_select :brand_id, Brand.all, :id, :name,  prompt: "---" ,class: "item-main__content-select-default"
+                -# = f.collection_select :brand_id, Brand.all, :id, :name,  prompt: "---" ,class: "item-main__content-select-default"
             -# 新規ブランド登録
             .item-main__content-head
               = f.label :brand_id do
@@ -72,7 +72,7 @@
               %span.form-require
                 必須
               .item-main__content-select
-                = f.collection_select :item_state_id, ItemState.all, :id, :item_state, prompt: "---", class: "item-main__content-select-default"
+                -# = f.collection_select :item_state_id, ItemState.all, :id, :item_state, prompt: "---", class: "item-main__content-select-default"
                 = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
           -# 色
           .item-main__content-form-group
@@ -82,7 +82,7 @@
               %span.form-elective
                 任意
               .item-main__content-select
-                = f.collection_select, :color_id, Color.all, :id, :color, prompt: "---", class: "item-main__content-select-default"
+                -# = f.collection_select :color_id, Color.all, :id, :color, prompt: "---", class: "item-main__content-select-default"
                 = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
           -# ハッシュタグ
           .item-main__content-form-group
@@ -93,19 +93,19 @@
                 任意
               = f.fields_for :tag do |t|
                 .item-main__content-select
-                  = t.collection_select, :hash1, Tag.all, :id, :tag, prompt: "---", class: "item-main__content-select-default"
+                  -# = t.collection_select :hash1, Tag.all, :id, :tag, prompt: "---", class: "item-main__content-select-default"
                   = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
-                  = t.collection_select, :hash2, Tag.all, :id, :tag, prompt: "---", class: "item-main__content-select-default"
+                  -# = t.collection_select :hash2, Tag.all, :id, :tag, prompt: "---", class: "item-main__content-select-default"
                   = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
-                  = t.collection_select, :hash3, Tag.all, :id, :tag, prompt: "---", class: "item-main__content-select-default"
+                  -# = t.collection_select :hash3, Tag.all, :id, :tag, prompt: "---", class: "item-main__content-select-default"
                   = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
-                  = t.collection_select, :hash4, Tag.all, :id, :tag, prompt: "---", class: "item-main__content-select-default"
+                  -# = t.collection_select :hash4, Tag.all, :id, :tag, prompt: "---", class: "item-main__content-select-default"
                   = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
-                  = t.collection_select, :hash5, Tag.all, :id, :tag, prompt: "---", class: "item-main__content-select-default"
+                  -# = t.collection_select :hash5, Tag.all, :id, :tag, prompt: "---", class: "item-main__content-select-default"
                   = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
                 -# ボタン
                 .btn-box
-                  = f.submit '登録する', class: 'btn-box__red'
+                  = f.submit '次へ進む', class: 'btn-box__red'
                   = link_to root_path, class: 'btn-box__gray' do
                     戻る
                 
