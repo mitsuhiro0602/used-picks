@@ -1,0 +1,111 @@
+.item-container
+  .item-head
+    %h2.item-head__header
+      商品情報を入力
+  .item-main
+    = form_for @item, class: 'item-main__form', url: {action: 'new'} do |f|
+      .item-main__box
+        .upload-box
+          .item-main__header
+            %h3.upload-__head
+              = f.label :image, "出品画像"
+            %span.form-require
+              必須
+          %p.upload-box__text
+            最大10枚までアップロードできます
+            -# 画像アップロード記述
+          .item_dropbox
+            .image-box__container
+              #image-box-1
+              .item-num-0#image-box__container
+              = f.fields_for :images do |i|
+                .input-area
+                  = i.file_field :images, type:'file', name: "item[images_attributes][][image_url]", value:"image_url", style: "display:none", id:"img-file", required: true
+                  %label.input{for: "img-file"}
+                    %i.fas.fa-camera
+                    .item_dropbox__text
+                      クリックしてファイルをアップロード
+      .item-main__content
+        -# 商品名
+        .item-main__content-form-group
+          .item-main__content-head
+            = f.label :name do
+              商品名
+            %span.form-require
+              必須
+          = f.text_field :name, class: 'input-default', placeholder: "商品名（40字まで）"
+        .item-main__content
+          %h3.subtitle
+            商品の詳細
+          -# カテゴリー名選択
+          .item-main__content-form-group
+            .item-main__content-head
+              = f.label 'カテゴリー', class: 'listing-default__label'
+              %span.form-require
+                必須
+            .item-main__content-category
+              = f.collection_select :category_id, @category_parent_array, :id, :name, prompt: "---", class: 'item-main__content-select-default', id: 'parent_category'
+          -# ブランド名選択
+          .item-main__content-form-group
+            .item-main__content-head
+              = f.label :brand_id do
+                ブランド
+              %span.form-elective
+                任意
+              .item-main__content-select
+                = f.collection_select :brand_id, Brand.all, :id, :name,  prompt: "---" ,class: "item-main__content-select-default"
+            -# 新規ブランド登録
+            .item-main__content-head
+              = f.label :brand_id do
+                新規ブランド名の登録
+              %span.form-elective
+                任意
+              = f.fields_for :brand do |b|
+                .item-main__content-select
+                  = b.text_field :name, placeholder: "例）CHANEL", class: "item-main__content-select-default", type: "text"
+                  = b.text_field :namekana, placeholder: "例）シャネル" , class: "item-main__contnet-select-default", type: "text"
+          -# 商品の状態
+          .item-main__content-form-group
+            .item-main__contnet-head
+              = f.label :item_state_id do
+                商品の状態
+              %span.form-require
+                必須
+              .item-main__content-select
+                = f.collection_select :item_state_id, ItemState.all, :id, :item_state, prompt: "---", class: "item-main__content-select-default"
+                = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
+          -# 色
+          .item-main__content-form-group
+            .item-main__content-head
+              =f.label :color_id do
+                色
+              %span.form-elective
+                任意
+              .item-main__content-select
+                = f.collection_select, :color_id, Color.all, :id, :color, prompt: "---", class: "item-main__content-select-default"
+                = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
+          -# ハッシュタグ
+          .item-main__content-form-group
+            .item-main__content-head
+              = f.label :tag_id do
+                ハッシュタグ
+              %span.form-elective
+                任意
+              = f.fields_for :tag do |t|
+                .item-main__content-select
+                  = t.collection_select, :hash1, Tag.all, :id, :tag, prompt: "---", class: "item-main__content-select-default"
+                  = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
+                  = t.collection_select, :hash2, Tag.all, :id, :tag, prompt: "---", class: "item-main__content-select-default"
+                  = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
+                  = t.collection_select, :hash3, Tag.all, :id, :tag, prompt: "---", class: "item-main__content-select-default"
+                  = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
+                  = t.collection_select, :hash4, Tag.all, :id, :tag, prompt: "---", class: "item-main__content-select-default"
+                  = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
+                  = t.collection_select, :hash5, Tag.all, :id, :tag, prompt: "---", class: "item-main__content-select-default"
+                  = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
+                -# ボタン
+                .btn-box
+                  = f.submit '登録する', class: 'btn-box__red'
+                  = link_to root_path, class: 'btn-box__gray' do
+                    戻る
+                

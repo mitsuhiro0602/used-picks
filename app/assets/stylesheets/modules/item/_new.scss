@@ -1,0 +1,348 @@
+.item-container {
+  height: 100%;
+  background-color: #f8f8f8;
+}
+.item-head {
+  display: block;
+  height: 128px;
+  padding: 30px;
+  //ヘッダー
+  &__header {
+    font-size: 24px;
+    text-align: center;
+    align-items: center;
+  }
+}
+.item-main {
+  background: #fff;
+  margin: 0 auto;
+  width: 700px;
+  &__box {
+    border-top: 1px solid #eee;
+    background: white;
+  }
+  //画像アップロード画面
+  .upload-box {
+    width: 620px;
+    padding: 40px;
+    margin: 0;
+    .item-main__header {
+      display: flex;
+      align-items: center;
+    }
+    .fa-camera {
+      font-size: 12px;
+      text-align: center;
+      line-height: 1.4em;
+      width: 24px;
+      height: 24px;
+    }
+    .item_dropbox {
+      display: block;
+      width: 620px;
+      margin: 16px auto 0;
+      background: white;
+      position: relative;
+      min-height: 162px;
+      background: #f5f5f5;
+      border: 1px dashed #ccc;
+      font-size: 0;
+      text-align: center;
+      &__text {
+        font-size: 12px;
+        line-height: 1.4em;
+        text-align: center;
+        width: 100%;
+      }
+    }
+    .input-area {
+      display: flex;
+      min-height: 100%;
+      min-width: 100%;
+      margin: 0 auto;
+      cursor: pointer;
+      padding-top: 48px;
+    }
+    .image-box__container {
+      flex-wrap: wrap;
+      display: flex;
+      width: 100%;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.5;
+      cursor: pointer;
+      min-height: 162px;
+    }
+    &__text {
+      font-size: 14px;
+      line-height: 1.4em;
+      margin-top: 16px;
+    }
+  }
+  &__content {
+    padding: 40px;
+    border-top: 1px solid #eee;
+    &__form-group {
+      align-items: center;
+      width: 100%;
+      margin-top: 16px;
+      .input-default {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-family: inherit;
+        font-size: inherit;
+        background-color: #fff;
+        height: 48px;
+        padding: 10px 16px 8px;
+        width: 100%;
+      }
+      //商品説明
+      .textarea-default {
+        width: 100%;
+        margin-top: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        color: #222;
+        font-size: 16px;
+        max-width: 100%;
+        min-height: 104%;
+        outline: none;
+        padding: 10px;
+        resize: vertical;
+        vertical-align: middle;
+        height: 181px;
+      }
+    }
+    &-head {
+      color: #222;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.4em;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    &-select {
+      width: 100%;
+      position: relative;
+      &_icon {
+        position: absolute;
+        pointer-events: none;
+        right: 16px;
+        top: 25%;
+        z-index: 2;
+        color: #888;
+        font-size: 16px;
+      }
+      //フォームのデフォルト
+      &-default {
+        background-color: white;
+        border: 1px solid #ccc;
+        text-indent: 0px;
+        border-radius: 4px;
+        position: relative;
+        color: #222;
+        font-size: 16px;
+        height: 48px;
+        line-height: 1.5;
+        margin-bottom: 5px;
+        padding: 0 16px;
+        width: 100%;
+        cursor: pointer;
+        -webkit-appearance: none;/* ベンダープレフィックス(Google Chrome、Safari用) */
+        -moz-appearance: none; /* ベンダープレフィックス(Firefox用) */
+        appearance: none; /* 標準のスタイルを無効にする */
+        z-index: 2;
+        &_icon {
+          position: absolute;
+          pointer-events: none;
+          right: 330px;
+          top: 1012px;
+          z-index: 3;
+          color: #888;
+          font-size: 16px;
+        }
+      }
+      //セレクトボタンのアイコン
+      .fa-chevron-select {
+        bottom: 0;
+        margin: auto;
+        pointer-events: none;
+        position: absolute;
+        right: 16px;
+        top: 0;
+      }
+    }
+    //価格のボックス
+    .content-price {
+      background: white;
+      padding-top: 32px;
+      white-space: nowrap;
+      &__form {
+        padding-bottom: 16px;
+        &-left {
+          white-space: nowrap;
+          float: left;
+          color: #888888;
+          display: flex;
+          color: #222;
+          font-size: 14px;
+          padding-top: 16px;
+        }
+        &-center {
+          font-size: 14px;
+          margin-right: 8px;
+        }
+        &-input {
+          text-align: right;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+          height: 48px;
+          margin: 0;
+          outline: none;
+          padding: 0 16px;
+          width: 60%;
+        }
+      }
+    }
+    //ボタンのボックス
+    .btn-box {
+      margin-bottom: 32px;
+      width: 360px;
+      margin: 0 auto 24px;
+      &__red {
+        background-color: #ea352d;
+        border: 1px solid #ea352d transparent;
+        display: block;
+        color: white;
+        width: 100%;
+        margin-bottom: 24px;
+        font-size: 14px;
+        line-height: 48px;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 4px;
+        -webkit-transition: all ease-out .3s;
+        transition: all ease-out .3s;
+      }
+      &__gray {
+        display: block;
+        width: 100%;
+        background-color: #aaa;
+        border-color: 1px solid #aaa transparent;
+        color: #fff;
+        text-align: center;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 14px;
+        cursor: pointer;
+        line-height: 48px;
+        border-radius: 4px;
+      }
+    }
+  }
+  .item-price-input {
+    text-align: right;
+    float: right;
+    display: flex;
+  }
+  .item_handling_charge {
+    display: block;
+    padding: 24px 0;
+    margin-top: 30px;
+    border-bottom: 1px solid #eee;
+  }
+  .price_form-box {
+    display: inline-block;
+    position: relative;
+    width: inherit;
+  }
+  #price_calc {
+    text-align: right;
+    height: 48px;
+    border-radius: 4px;
+    font-size: 20px;
+    float: right;
+    border: 1px solid #ccc;
+    white-space: nowrap;
+    padding: 0 16px;
+    min-width: 100%;
+  }
+  p.price {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 48px;
+    margin-right: 8px;
+    float: right;
+  }
+  .right_bar {
+    float: right;
+    font-size: 16px;
+  }
+  .right-profit_bar {
+    float: right;
+    font-size: 16px;
+  }
+  .right_price {
+    float: right;
+    font-size: 16px;
+  }
+  .right-profit_price {
+    float: right;
+    font-size: 16px;
+  }
+  .sell_profit {
+    padding: 24px 0;
+    border-top: 1px solid #eee;
+  }
+  label {
+    cursor: pointer;
+    font-size: 14px;
+    margin: 0 auto;
+    line-height: 1.4em;
+    width: 100%;
+  }
+  .form-require {
+    background-color: red;
+    color: white;
+    margin-left: 8px;
+    padding: 2px 4px;
+    border-radius: 2px;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.4em;
+  }
+  .form-elective {
+    background-color: gray;
+    color: white;
+    margin-left: 8px;
+    padding: 2px 4px;
+    border-radius: 2px;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.4em;
+  }
+  .subtile {
+    color: rgb(136, 136, 136);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4em;
+    margin-bottom: 24px;
+  }
+  .caution {
+    align-items: center;
+    width: 100%;
+    height: 32px;
+    margin-top: 16px;
+    &__text {
+      font-size: 12px;
+      line-height: 1.4em;
+      height: 30px;
+      white-space: normal;
+    }
+  }
+}
