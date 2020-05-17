@@ -1,0 +1,71 @@
+.main
+  .box
+    %h2.box-header
+      出品情報を入力
+    .box-form
+      = form_for(@item, url: users_signup_address_path, html: {method: :"post"}) do |f|
+        .box-form__content
+          .box-form__content__input
+            %label 出品日
+            = f.date_select :day_id, class: "form-control"
+            .box-form__content__input__message
+              %p 出品する日を入力してください
+          .box-form__content__input
+            %label 売却日
+            = f.date_select :day_id, class: "form-control"
+            .box-form__content__input__message
+              %p 売却した日を入力してください
+        .box-form__content
+          .box-form__content__input
+            %label 初期価格
+            = f.text_field :price, calss: "form-control"
+            .box-form__content__input__message
+              %p 初期価格を入力してください
+          .box-form__content__input
+            %label 売却価格
+            = f.text_field :price, class: "form-control"
+            .box-form__content__input__message
+              %p 売却した価格を入力してください
+        .box-form__content
+          .box-form__content__input
+            %label 肩幅
+            = f.text_field :measure, class: "form-control"
+            .box-form__content__input__message
+              %p 肩幅を入力してください
+          .box-form__content__input
+            %label 袖丈
+            = f.text_field :measure, class: "form-control"
+            .box-form__content__input__message
+              %p 袖丈を入力してください
+          .box-form__content__input
+            %label 着丈
+            = f.text_field :measure, class: "form-control"
+            .box-form__content__input__message
+              %p 着丈を入力してください
+          .box-form__content__input
+            %label 身幅
+            = f.text_field :measure, class: "form-control"
+            .box-form__content__input__message
+              %p 身幅を入力してください
+          .box-form__content__input
+            %label ウェスト
+            = f.text_field :measure, class: "form-control"
+            .box-form__content__input__message
+              %p ウェストを入力してください
+          .box-form__content__input
+            %label 総丈
+            = f.text_field :measure, class: "form-control"
+            .box-form__content__input__message
+              %p 総丈を入力してください
+          .box-form__content__input
+            %label 股下
+            = f.text_field :measure, class: "form-control"
+            .box-form__content__input__message
+              %p 股下を入力してください
+        .signup
+          = f.submit "SMSを送信する", class:'signup__btn'
+          .box-form__content__bottom_contents
+            %p ※電話番号は本人確認や不正利用防止のために利用します。他のユーザーに公開されることはありません。
+          .box-form__content__bottom_right
+            = link_to "#", class: "most_bottom_link" do
+              %p.most_bottom_link 電話番号の確認が必要な理由 >
