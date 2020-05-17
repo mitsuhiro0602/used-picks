@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       get 'step1'
       post 'step2'
       post 'step3'
+      get 'category_children'
+      get 'category_grandchildren'
     end
   end
 
