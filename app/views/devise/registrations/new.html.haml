@@ -19,9 +19,9 @@
           - if @minimum_password_length
           %em
             (#{@minimum_password_length} 文字以上入力してください)
-        = f.text_field :password, class: "form-control", placeholder: "パスワードを入力してください", autocomplete: "off"
+        = f.password_field :password, class: "form-control", placeholder: "パスワードを入力してください", autocomplete: "off"
       .form-group
         = f.label :password_confirmation
-        = f.text_field :password_confirmation, class: "form-control", placeholder: "パスワードを再度入力してください", autocomplete: "off"
+        = f.password_field :password_confirmation, class: "form-control", placeholder: "パスワードを再度入力してください", autocomplete: "off"
       .text-center
         = f.submit "アカウントを作成", class: "btn submitBtn"

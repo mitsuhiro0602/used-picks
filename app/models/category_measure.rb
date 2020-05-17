@@ -1,0 +1,2 @@
+class CategoryMeasure < ApplicationRecord
+end

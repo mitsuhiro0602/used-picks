@@ -1,0 +1,2 @@
+class ItemState < ApplicationRecord
+end

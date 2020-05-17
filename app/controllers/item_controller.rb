@@ -7,7 +7,7 @@ class ItemController < ApplicationController
     def step1
       @item = Item.new
       @item.images.new
-      @item.build_brand
+      @item.build_brand_id
       @category_parent_array = Category.where(ancestry: nil)
     end
 
