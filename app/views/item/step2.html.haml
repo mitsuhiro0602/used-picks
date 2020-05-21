@@ -1,71 +1,88 @@
-.main
-  .box
-    %h2.box-header
+.item-container
+  .item-head
+    %h2.item-head_header
       出品情報を入力
-    .box-form
-      = form_for(@item, url: users_signup_address_path, html: {method: :"post"}) do |f|
-        .box-form__content
-          .box-form__content__input
-            %label 出品日
-            = f.date_select :day_id, class: "form-control"
-            .box-form__content__input__message
-              %p 出品する日を入力してください
-          .box-form__content__input
-            %label 売却日
-            = f.date_select :day_id, class: "form-control"
-            .box-form__content__input__message
-              %p 売却した日を入力してください
-        .box-form__content
-          .box-form__content__input
-            %label 初期価格
-            = f.text_field :price, calss: "form-control"
-            .box-form__content__input__message
-              %p 初期価格を入力してください
-          .box-form__content__input
-            %label 売却価格
-            = f.text_field :price, class: "form-control"
-            .box-form__content__input__message
-              %p 売却した価格を入力してください
-        .box-form__content
-          .box-form__content__input
-            %label 肩幅
-            = f.text_field :measure, class: "form-control"
-            .box-form__content__input__message
-              %p 肩幅を入力してください
-          .box-form__content__input
-            %label 袖丈
-            = f.text_field :measure, class: "form-control"
-            .box-form__content__input__message
-              %p 袖丈を入力してください
-          .box-form__content__input
-            %label 着丈
-            = f.text_field :measure, class: "form-control"
-            .box-form__content__input__message
-              %p 着丈を入力してください
-          .box-form__content__input
-            %label 身幅
-            = f.text_field :measure, class: "form-control"
-            .box-form__content__input__message
-              %p 身幅を入力してください
-          .box-form__content__input
-            %label ウェスト
-            = f.text_field :measure, class: "form-control"
-            .box-form__content__input__message
-              %p ウェストを入力してください
-          .box-form__content__input
-            %label 総丈
-            = f.text_field :measure, class: "form-control"
-            .box-form__content__input__message
-              %p 総丈を入力してください
-          .box-form__content__input
-            %label 股下
-            = f.text_field :measure, class: "form-control"
-            .box-form__content__input__message
-              %p 股下を入力してください
-        .signup
-          = f.submit "SMSを送信する", class:'signup__btn'
-          .box-form__content__bottom_contents
-            %p ※電話番号は本人確認や不正利用防止のために利用します。他のユーザーに公開されることはありません。
-          .box-form__content__bottom_right
-            = link_to "#", class: "most_bottom_link" do
-              %p.most_bottom_link 電話番号の確認が必要な理由 >
+    .item-main
+      = form_for(@item, url: step3_item_index_path, html: {method: :"post"}) do |f|
+        .item-main__content
+          .item-main__content-form-group
+            .item-main__content-head
+            = f.label :day_id do
+              出品日
+            %span.form-require
+              必須
+            = f.date_select :day_id, class: "item-main__content-textsize"
+          .item-main__content-form-group
+            .item-main__content-head
+            = f.label :day_id do
+              売却日
+            %span.form-elective
+              任意
+            = f.date_select :day_id, class: "item-main__content-textsize"
+          .item-main__content-form-group
+            .item-main__content-head
+            = f.label :price_id do
+              初期価格
+            %span.form-require
+              必須
+            = f.text_field :price_id, calss: "item-main__content-textsize"
+          .item-main__content-form-group
+            .item-main__content-head
+            = f.label :price_id do
+              初期価格
+            %span.form-require
+              必須
+            = f.text_field :price_id, calss: "item-main__content-textsize"
+          .item-main__content-form-group
+            .item-main__content-head
+            = f.label :measure_id do
+              肩幅
+            %span.form-elective
+              任意
+            = f.text_field :measure, class: "item-main__content-textsize"
+          .item-main__content-form-group
+            .item-main__content-head
+            = f.label :measure_id do
+              袖丈
+            %span.form-elective
+              任意
+            = f.text_field :measure, class: "item-main__content-textsize"
+          .item-main__content-form-group
+            .item-main__content-head
+            = f.label :measure_id do
+              着丈
+            %span.form-elective
+              任意
+            = f.text_field :measure_id, class: "item-main__content-textsize"
+          .item-main__content-form-group
+            .item-main__content-head
+            = f.label :measure_id do
+              身幅
+            %span.form-elective
+              任意
+            = f.text_field :measure, class: "item-main__content-textsize"
+          .item-main__content-form-group
+            .item-main__content-head
+            = f.label :measure_id do
+              ウェスト
+            %span.form-elective
+              任意
+            = f.text_field :measure, class: "item-main__content-textsize"
+          .item-main__content-form-group
+            .item-main__content-head
+            = f.label :measure_id do
+              総丈
+            %span.form-elective
+              任意
+            = f.text_field :measure, class: "item-main__content-textsize"
+          .item-main__content-form-group
+            .item-main__content-head
+            = f.label :measure_id do
+              股下
+            %span.form-elective
+              任意
+            = f.text_field :measure, class: "item-main__content-textsize"
+          .btn-box
+            = f.submit "次へ進む", class:'btn-box__red'
+            = link_to root_path, class: 'btn-box__gray' do
+              戻る

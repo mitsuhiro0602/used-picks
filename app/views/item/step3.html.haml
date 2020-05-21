@@ -3,25 +3,24 @@
     %h2.item-head__header
       商品の説明を入力する
   .item-main
-    = form_for @item, url: item_step3_item_index_path, method: :post, class: 'item-main__form' do |f|
-    .item-main__content
-      = f.fields_for :post do |p|
-        .item-main__content-form-group
-          .item-main__content__input
-            = p.label :title
-              タイトル
-            %span.require
-              必須
-              .item-main__content-select
-                = p.text_field :title, placeholder: "タイトルを入力してください", class: "item-main__content-select-default", type: "text"
-        .item-main__content-form-group
-          .item-main__content__input
-            = p.label :content
-              本文
-            %span.require
-              必須
-            = p.text_area :content, class: "textarea-default", placeholder: "商品の説明（必須　１０００文字以内)(色、素材、重さ、定価、注意点など)例）2010年頃に１万円で購入したジャケットです。ライトグレーで傷はありません、あわせやすいのでおすすめです", rows:"10"
+    = form_for(@item , url: { controller: 'item', action: 'create'}) do |f|
+      .item-main__content
+        = f.fields_for :post do |p|
+          .item-main__content-form-group
+            .item-main__content-head
+              = p.label :title do
+                タイトル
+              %span.form-require
+                必須
+              = p.text_field :title, placeholder: "タイトルを入力してください", class: "item-main__content-select-default", type: "text"
+          .item-main__content-form-group
+            .item-main__content-head
+              = p.label :content do
+                本文
+              %span.form-require
+                必須
+              = p.text_area :content, class: "item-main__content-textarea", placeholder: "商品の説明（必須　１０００文字以内)(色、素材、重さ、定価、注意点など)例）2010年頃に１万円で購入したジャケットです。ライトグレーで傷はありません、あわせやすいのでおすすめです", rows:"10"
           .btn-box
             = f.submit '次へ進む', class: 'btn-box__red'
-            = link_to item_step1_item_index_path, class: 'btn-box__gray' do
+            = link_to step2_item_index_path, class: 'btn-box__gray' do
               戻る
