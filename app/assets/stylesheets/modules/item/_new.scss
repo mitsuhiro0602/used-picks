@@ -87,33 +87,6 @@
       align-items: center;
       width: 100%;
       margin-top: 16px;
-      .input-default {
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-family: inherit;
-        font-size: inherit;
-        background-color: #fff;
-        height: 48px;
-        padding: 10px 16px 8px;
-        width: 100%;
-      }
-      //商品説明
-      .textarea-default {
-        width: 100%;
-        margin-top: 16px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        color: #222;
-        font-size: 16px;
-        max-width: 100%;
-        min-height: 104%;
-        outline: none;
-        padding: 10px;
-        resize: vertical;
-        vertical-align: middle;
-        height: 181px;
-      }
     }
     &-head {
       color: #222;
@@ -122,6 +95,44 @@
       line-height: 1.4em;
       margin-bottom: 24px;
       position: relative;
+    }
+    &-textfield {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-family: inherit;
+      font-size: inherit;
+      background-color: #fff;
+      height: 48px;
+      padding: 10px 16px 8px;
+      width: 100%;
+    }
+    &-textarea {
+      width: 100%;
+      margin-top: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      color: #222;
+      font-size: 16px;
+      max-width: 100%;
+      min-height: 104%;
+      outline: none;
+      padding: 10px;
+      resize: vertical;
+      vertical-align: middle;
+      height: 181px;
+    }
+    //step2のサイズ
+    &-textsize {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-family: inherit;
+      font-size: inherit;
+      background-color: #fff;
+      height: 16px;
+      padding: 10px 16px 8px;
+      width: 10%;
     }
     &-select {
       width: 100%;
