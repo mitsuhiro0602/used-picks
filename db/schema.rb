@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200517142136) do
+ActiveRecord::Schema.define(version: 20200521101242) do
 
   create_table "brands", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "brand_name"
@@ -45,12 +45,6 @@ ActiveRecord::Schema.define(version: 20200517142136) do
     t.index ["size_id"], name: "index_category_sizes_on_size_id", using: :btree
   end
 
-  create_table "colors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "days", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "exhibit_day", null: false
     t.integer  "soldout_day"
@@ -68,6 +62,13 @@ ActiveRecord::Schema.define(version: 20200517142136) do
 
   create_table "item_states", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "item_tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "item_id"
+    t.integer  "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -147,11 +148,7 @@ ActiveRecord::Schema.define(version: 20200517142136) do
   end
 
   create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "hash1"
-    t.string   "hash2"
-    t.string   "hash3"
-    t.string   "hash4"
-    t.string   "hash5"
+    t.string   "hash"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

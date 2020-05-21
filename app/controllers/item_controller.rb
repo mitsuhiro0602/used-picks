@@ -1,4 +1,10 @@
 class ItemController < ApplicationController
+  before_action :save_step1_to_session, only: :step2
+  before_action :save_step2_to_session, only: :step3
+
+  before_action :set_item, only:[:destroy, :show, :edit, :update]
+  before_action :set_category
+  before_action :confirmation, only: [:new, :edit]
 
     def index
       @items = Item.includes(:images).order('created_at DESC')
@@ -7,62 +13,57 @@ class ItemController < ApplicationController
     def step1
       @item = Item.new
       @item.images.new
-      # @item.build_brand_id
+      @item.build_brand #brandモデルと関連づける
+      # @item.build_item_tags #tagモデルと関連づける
       @category_parent_array = Category.where(ancestry: nil)
     end
 
     def step2
       @item = Item.new
+      @item.build_day #dayモデルと関連づける
+      @item.build_price #priceモデルと関連づける
+      @item.build_measure #measureモデルと関連づける
     end
 
     def step3
       @item = Item.new
+      @item.build_post #postモデルと関連づける
     end
 
 
   #   #step1以降のバリデーション追加
 
-  #   def save_step1_to_session
-  #     session[:nickname] = user_params[:nickname]
-  #     session[:email] = user_params[:email]
-  #     session[:password] = user_params[:password]
-  #     session[:last_name] = user_params[:last_name]
-  #     session[:first_name] = user_params[:first_name]
-  #     session[:last_name_kana] = user_params[:last_name_kana]
-  #     session[:first_name_kana] = user_params[:first_name_kana]
-  #     session[:birth_year] = user_params[:birth_year]
-  #     session[:birth_month] = user_params[:birth_month]
-  #     session[:birth_day] = user_params[:birth_day]
+    def save_step1_to_session
+      session[:name] = item_params[:name]
+      session[:category_id] = item_params[:category_id]
+      session[:brand_id] = item_params[:brand_id]
+      session[:item_state_id] = item_params[:item_state_id]
+      session[:tag_id] = item_params[:tag_id]
 
   #     # バリデーション用に仮でインスタンスを作成
 
-  #     @item = Item.new(
-  #     nickname: session[:nickname], #sessionに保存された値を返す
-  #     email: session[:email],
-  #     password: session[:password],
-  #     last_name: session[:last_name],
-  #     first_name: session[:first_name],
-  #     last_name_kana: session[:last_name_kana],
-  #     first_name_kana: session[:first_name_kana],
-  #     birth_year: session[:birth_year],
-  #     birth_month: session[:birth_month],
-  #     birth_day: session[:birth_day]
-  #   )
-  #   render action: :step1 unless @user.valid?(:save_step1_to_session)
-  #   end
+      @item = Item.new(
+      name: session[:name], #sessionに保存された値を返す
+      category_id: session[:category_id],
+      brand_id: session[:brand_id],
+      item_state_id: session[:item_state_id],
+      tag_id: session[:tag_id]
+    )
+    render action: :step1 unless @item.valid?(:save_step1_to_session)
+    end
 
   # #ステップ2以降のバリデーションの追加
 
-  # def save_step2_to_session
-  #   session[:tel] = user_params[:tel] #step2で入力された情報をsessionに代入する
-  #   # バリデーション用に仮でインスタンスを作成
-  #   @user =User.new(
-  #     email: session[:email],
-  #     password: session[:password],
-  #     tel: session[:tel]
-  #   )
-  #   render '/users/signup/sms' unless @user.valid?(:save_step2_to_session)
-  # end
+  def save_step2_to_session
+    session[:day_id] = user_params[:day_id] #step2で入力された情報をsessionに代入する
+    # バリデーション用に仮でインスタンスを作成
+    @user =User.new(
+      email: session[:email],
+      password: session[:password],
+      tel: session[:tel]
+    )
+    render '/users/signup/sms' unless @user.valid?(:save_step2_to_session)
+  end
 
 
     #親カテゴリーが選択された後に動くアクション
@@ -98,6 +99,19 @@ class ItemController < ApplicationController
       end
     end
 
+    # 子カテゴリー
+    def category_children
+      children = Category.find(params[:name]).name
+      @category_children = Category.find_by(name: children, ancestry: nil ).children
+    end
+
+    # ログイン状態の確認
+    def confirmation #ログインしていない場合はユーザー登録に移動
+      unless user_signed_in?
+        redirect_to user_session_path, alert: "ログインしてください"
+      end
+    end
+
     def show
       # if user_signed_in?
       #   @item = Item.find(params[:id])
@@ -128,6 +142,27 @@ class ItemController < ApplicationController
     private
 
     def item_params
-      params.require(:item).permit(:name, :price, images_attributes: [:image_url])
+      params.require(:item).permit(:name, :price_id, :post_id, :category_id, :size_id, :measure_id, :item_state_id, :day_id,  images_attributes: [:image_url, :_destroy, :id]).merge(user_id: current_user.id)
+    end
+
+    def set_item
+      @item = Item.find(params[:id])
+      @images = @item.images
+    end
+
+    def item_update_params
+      params.require(:item).permit(:name, :price, :description, :category_id)
+    end
+
+    def registered_images_params
+      params.require(:registered_images_ids).permit({ids: []})
+    end
+
+    def new_image_params
+      params.require(:new_images).permit({images: []})
+    end
+
+    def set_category
+      @category_parent_array = Category.where(ancestry: nil)
     end
 end
