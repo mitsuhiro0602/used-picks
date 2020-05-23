@@ -6,82 +6,81 @@
       = form_for(@item, url: step3_item_index_path, html: {method: :"post"}) do |f|
         .item-main__content
           .item-main__content-form-group
-            .item-main__content-head
-            = f.label :day_id do
-              出品日
-            %span.form-require
-              必須
-            = f.date_select :day_id, class: "item-main__content-textsize"
+            = f.fields_for :day do |d|
+              .item-main__content-head
+              = d.label :exhibit_day do
+                出品日
+              %span.form-require
+                必須
+              = d.date_select :exhibit_day, class: "item-main__content-textsize"
+            .item-main__content-form-group
+              .item-main__content-head
+              = d.label :soldout_day do
+                売却日
+              %span.form-elective
+                任意
+              = d.date_select :soldout_day, class: "item-main__content-textsize"
           .item-main__content-form-group
-            .item-main__content-head
-            = f.label :day_id do
-              売却日
-            %span.form-elective
-              任意
-            = f.date_select :day_id, class: "item-main__content-textsize"
+            = f.fields_for :price do |p|
+              .item-main__content-head
+              = p.label :initial_price do
+                初期価格
+              %span.form-require
+                必須
+              = p.text_field :initial_price, calss: "item-main__content-textsize"
+              .item-main__content-head
+              = p.label :soldout_price do
+                初期価格
+              %span.form-require
+                必須
+              = p.text_field :soldout_price, calss: "item-main__content-textsize"
           .item-main__content-form-group
-            .item-main__content-head
-            = f.label :price_id do
-              初期価格
-            %span.form-require
-              必須
-            = f.text_field :price_id, calss: "item-main__content-textsize"
-          .item-main__content-form-group
-            .item-main__content-head
-            = f.label :price_id do
-              初期価格
-            %span.form-require
-              必須
-            = f.text_field :price_id, calss: "item-main__content-textsize"
-          .item-main__content-form-group
-            .item-main__content-head
-            = f.label :measure_id do
-              肩幅
-            %span.form-elective
-              任意
-            = f.text_field :measure, class: "item-main__content-textsize"
-          .item-main__content-form-group
-            .item-main__content-head
-            = f.label :measure_id do
-              袖丈
-            %span.form-elective
-              任意
-            = f.text_field :measure, class: "item-main__content-textsize"
-          .item-main__content-form-group
-            .item-main__content-head
-            = f.label :measure_id do
-              着丈
-            %span.form-elective
-              任意
-            = f.text_field :measure_id, class: "item-main__content-textsize"
-          .item-main__content-form-group
-            .item-main__content-head
-            = f.label :measure_id do
-              身幅
-            %span.form-elective
-              任意
-            = f.text_field :measure, class: "item-main__content-textsize"
-          .item-main__content-form-group
-            .item-main__content-head
-            = f.label :measure_id do
-              ウェスト
-            %span.form-elective
-              任意
-            = f.text_field :measure, class: "item-main__content-textsize"
-          .item-main__content-form-group
-            .item-main__content-head
-            = f.label :measure_id do
-              総丈
-            %span.form-elective
-              任意
-            = f.text_field :measure, class: "item-main__content-textsize"
-          .item-main__content-form-group
-            .item-main__content-head
-            = f.label :measure_id do
-              股下
-            %span.form-elective
-              任意
-            = f.text_field :measure, class: "item-main__content-textsize"
+            = f.fields_for :measure do |m|
+              .item-main__content-head
+              = m.label :shwidth do
+                肩幅
+              %span.form-elective
+                任意
+              = m.text_field :shwidth, class: "item-main__content-textsize"
+              .item-main__content-head
+              = m.label :sllength do
+                袖丈
+              %span.form-elective
+                任意
+              = m.text_field :sllength, class: "item-main__content-textsize"
+              .item-main__content-head
+              = m.label :length do
+                着丈
+              %span.form-elective
+                任意
+              = m.text_field :length, class: "item-main__content-textsize"
+              .item-main__content-head
+              = m.label :bustlength do
+                身幅
+              %span.form-elective
+                任意
+              = m.text_field :bustlength, class: "item-main__content-textsize"
+            .item-main__content-form-group
+              .item-main__content-head
+              = m.label :west do
+                ウェスト
+              %span.form-elective
+                任意
+              = m.text_field :west, class: "item-main__content-textsize"
+            .item-main__content-form-group
+              .item-main__content-head
+              = m.label :tolength do
+                総丈
+              %span.form-elective
+                任意
+              = m.text_field :tolength, class: "item-main__content-textsize"
+            .item-main__content-form-group
+              .item-main__content-head
+              = m.label :inseam do
+                股下
+              %span.form-elective
+                任意
+              = m.text_field :inseam, class: "item-main__content-textsize"
           .btn-box
             = f.submit "次へ進む", class:'btn-box__red'
             = link_to root_path, class: 'btn-box__gray' do

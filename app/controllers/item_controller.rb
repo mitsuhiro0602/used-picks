@@ -1,9 +1,9 @@
 class ItemController < ApplicationController
-  before_action :save_step1_to_session, only: :step2
+  # before_action :save_step1_to_session, only: :step2
   before_action :save_step2_to_session, only: :step3
 
-  before_action :set_item, only:[:destroy, :show, :edit, :update]
-  before_action :set_category
+  before_action :set_item, only: [:destroy, :show, :edit, :update]
+  before_action :set_category, only: [:new, :create, :edit, :update]
   before_action :confirmation, only: [:new, :edit]
 
     def index
@@ -34,11 +34,12 @@ class ItemController < ApplicationController
   #   #step1以降のバリデーション追加
 
     def save_step1_to_session
-      session[:name] = item_params[:name]
-      session[:category_id] = item_params[:category_id]
-      session[:brand_id] = item_params[:brand_id]
-      session[:item_state_id] = item_params[:item_state_id]
-      session[:tag_id] = item_params[:tag_id]
+      binding.pry
+      # session[:name] = item_params[:name]
+      # session[:category_id] = item_params[:category_id]
+      # session[:brand_id] = item_params[:brand_id]
+      # session[:item_state_id] = item_params[:item_state_id]
+      # session[:tag_id] = item_params[:tag_id]
 
   #     # バリデーション用に仮でインスタンスを作成
 
@@ -49,12 +50,13 @@ class ItemController < ApplicationController
       item_state_id: session[:item_state_id],
       tag_id: session[:tag_id]
     )
-    render action: :step1 unless @item.valid?(:save_step1_to_session)
+      render action: :step1 unless @item.valid?(:save_step1_to_session)
     end
 
   # #ステップ2以降のバリデーションの追加
 
   def save_step2_to_session
+    binding.pry
     session[:day_id] = user_params[:day_id] #step2で入力された情報をsessionに代入する
     # バリデーション用に仮でインスタンスを作成
     @user =User.new(
@@ -142,7 +144,42 @@ class ItemController < ApplicationController
     private
 
     def item_params
-      params.require(:item).permit(:name, :price_id, :post_id, :category_id, :size_id, :measure_id, :item_state_id, :day_id,  images_attributes: [:image_url, :_destroy, :id]).merge(user_id: current_user.id)
+      params.require(:item).permit(
+        :name,
+        :category_id,
+        :size_id,
+        :item_state_id,
+        images_attributes: [
+          :image_url,
+          :_destroy,
+          :id
+          ],
+        brands_attributes: [
+          :id,
+          :brand_name,
+          :brand_name_kana
+        ],
+        prices_attributes: [
+          :id,
+          :initial_price,
+          :soldout_price
+        ],
+        days_attributes: [
+          :id,
+          :exhibit_day,
+          :soldout_day
+        ],
+        measures_attributes: [
+          :id,
+          :shwidth,
+          :sllength,
+          :length,
+          :bustlength,
+          :west,
+          :tolength,
+          :inseam
+        ]
+      ).merge(user_id: current_user.id)
     end
 
     def set_item

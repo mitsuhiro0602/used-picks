@@ -71,7 +71,7 @@
               %span.form-require
                 必須
               .item-main__content-select
-                = f.collection_select( :item_state_id, ItemState.all, :id, :item_state, {prompt: "---"}, {class: 'item-main__content-select-default'})
+                = f.collection_select( :item_state_id, ItemState.all, :id, :state, {prompt: "---"}, {class: 'item-main__content-select-default'})
                 = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
           -# ハッシュタグ
           .item-main__content-form-group
