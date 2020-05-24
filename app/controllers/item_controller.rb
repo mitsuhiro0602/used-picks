@@ -1,8 +1,6 @@
 class ItemController < ApplicationController
-  # before_action :save_step1_to_session, only: :step2
-  before_action :save_step2_to_session, only: :step3
+  before_action :set_item, only:[:destroy, :show, :edit, :update]
 
-  before_action :set_item, only: [:destroy, :show, :edit, :update]
   before_action :set_category, only: [:new, :create, :edit, :update]
   before_action :confirmation, only: [:new, :edit]
 
@@ -10,63 +8,12 @@ class ItemController < ApplicationController
       @items = Item.includes(:images).order('created_at DESC')
     end
 
-    def step1
+    def new
       @item = Item.new
       @item.images.new
-      @item.build_brand #brandモデルと関連づける
-      # @item.build_item_tags #tagモデルと関連づける
+      @item.build_brand
       @category_parent_array = Category.where(ancestry: nil)
     end
-
-    def step2
-      @item = Item.new
-      @item.build_day #dayモデルと関連づける
-      @item.build_price #priceモデルと関連づける
-      @item.build_measure #measureモデルと関連づける
-    end
-
-    def step3
-      @item = Item.new
-      @item.build_post #postモデルと関連づける
-    end
-
-
-  #   #step1以降のバリデーション追加
-
-    def save_step1_to_session
-      binding.pry
-      # session[:name] = item_params[:name]
-      # session[:category_id] = item_params[:category_id]
-      # session[:brand_id] = item_params[:brand_id]
-      # session[:item_state_id] = item_params[:item_state_id]
-      # session[:tag_id] = item_params[:tag_id]
-
-  #     # バリデーション用に仮でインスタンスを作成
-
-      @item = Item.new(
-      name: session[:name], #sessionに保存された値を返す
-      category_id: session[:category_id],
-      brand_id: session[:brand_id],
-      item_state_id: session[:item_state_id],
-      tag_id: session[:tag_id]
-    )
-      render action: :step1 unless @item.valid?(:save_step1_to_session)
-    end
-
-  # #ステップ2以降のバリデーションの追加
-
-  def save_step2_to_session
-    binding.pry
-    session[:day_id] = user_params[:day_id] #step2で入力された情報をsessionに代入する
-    # バリデーション用に仮でインスタンスを作成
-    @user =User.new(
-      email: session[:email],
-      password: session[:password],
-      tel: session[:tel]
-    )
-    render '/users/signup/sms' unless @user.valid?(:save_step2_to_session)
-  end
-
 
     #親カテゴリーが選択された後に動くアクション
     def get_category_children
@@ -93,7 +40,13 @@ class ItemController < ApplicationController
     end
 
     def create
-      @item = Item.new(item_params)
+      @item = Item.new(session[:item_params]) #itemモデルのsessionを引数で返す
+      @item.build_brand(session[:brands_attributes_after_step1]) #brandモデルのsessionを引数で返す
+      @item.build_image(session[:images_attributes_after_step1]) #imageモデルのsessionを引数で返す
+      @item.build_price(session[:prices_attributes_after_step2]) #priceモデルのsessionを引数で返す
+      @item.build_day(session[:days_attributes_after_step2]) #dayモデルのsessionを引数で返す
+      @item.build_measure(session[:measures_attributes_after_step2]) #measureモデルのsessionを引数で返す
+      @item.build_post(item_params[:post_attributes]) #今回のpostモデルを代入する
       if @item.save
         redirect_to root_path, notice: "出品しました"
       else

@@ -45,13 +45,6 @@ ActiveRecord::Schema.define(version: 20200521101242) do
     t.index ["size_id"], name: "index_category_sizes_on_size_id", using: :btree
   end
 
-  create_table "days", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "exhibit_day", null: false
-    t.integer  "soldout_day"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "image_url"
     t.integer  "item_id"
@@ -116,20 +109,14 @@ ActiveRecord::Schema.define(version: 20200521101242) do
   end
 
   create_table "posts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "title",      null: false
-    t.string   "content",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "item_id",    null: false
-    t.integer  "brand_id"
-    t.integer  "measure_id"
-    t.integer  "tag_id"
-    t.integer  "color_id"
-    t.index ["brand_id"], name: "index_posts_on_brand_id", using: :btree
-    t.index ["color_id"], name: "index_posts_on_color_id", using: :btree
-    t.index ["item_id"], name: "index_posts_on_item_id", using: :btree
-    t.index ["measure_id"], name: "index_posts_on_measure_id", using: :btree
-    t.index ["tag_id"], name: "index_posts_on_tag_id", using: :btree
+    t.string   "title",         null: false
+    t.string   "content",       null: false
+    t.string   "exhibit_day"
+    t.string   "soldout_day"
+    t.integer  "initial_price"
+    t.integer  "soldout_price"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "prices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
