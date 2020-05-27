@@ -2,16 +2,11 @@ Rails.application.routes.draw do
   devise_for :users
   root "item#index"
 
-  resources :item, only: [:index, :create] do
+  resources :item do
     collection do
-      get 'step1'
-      post 'step1' => 'item#step1_validation'
-      get 'step2'
-      post 'step2' => 'item#step2_validation'
-      get 'step3'
-      post 'step3' => 'item#step3_calidation'
-      get 'category_children'
-      get 'category_grandchildren'
+      get 'get_category_children', defaults: { format: 'json' }
+      get 'get_category_grandchildren', defaults: {format: 'json'}
+      get 'get_size',defaults: {format: 'json'}
     end
   end
 

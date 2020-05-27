@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200517142136) do
+ActiveRecord::Schema.define(version: 20200525232857) do
 
   create_table "brands", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "brand_name"
@@ -45,19 +45,6 @@ ActiveRecord::Schema.define(version: 20200517142136) do
     t.index ["size_id"], name: "index_category_sizes_on_size_id", using: :btree
   end
 
-  create_table "colors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "days", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "exhibit_day", null: false
-    t.integer  "soldout_day"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "image_url"
     t.integer  "item_id"
@@ -72,13 +59,28 @@ ActiveRecord::Schema.define(version: 20200517142136) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "item_tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "item_id"
+    t.integer  "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "iteminfos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "soldout_day"
+    t.integer  "soldout_price"
+    t.integer  "item_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["item_id"], name: "index_iteminfos_on_item_id", using: :btree
+  end
+
   create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "user_id",       null: false
     t.integer  "post_id",       null: false
-    t.integer  "day_id"
     t.integer  "price_id"
     t.integer  "brand_id"
     t.integer  "category_id"
@@ -86,11 +88,11 @@ ActiveRecord::Schema.define(version: 20200517142136) do
     t.integer  "size_id"
     t.integer  "measure_id"
     t.integer  "tag_id"
-    t.integer  "color_id"
+    t.date     "exhibit_day"
+    t.integer  "initial_price"
+    t.string   "description"
     t.index ["brand_id"], name: "index_items_on_brand_id", using: :btree
     t.index ["category_id"], name: "index_items_on_category_id", using: :btree
-    t.index ["color_id"], name: "index_items_on_color_id", using: :btree
-    t.index ["day_id"], name: "index_items_on_day_id", using: :btree
     t.index ["item_state_id"], name: "index_items_on_item_state_id", using: :btree
     t.index ["measure_id"], name: "index_items_on_measure_id", using: :btree
     t.index ["post_id"], name: "index_items_on_post_id", using: :btree
@@ -115,24 +117,11 @@ ActiveRecord::Schema.define(version: 20200517142136) do
   end
 
   create_table "posts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "title",      null: false
-    t.string   "content",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "item_id",    null: false
-    t.integer  "brand_id"
-    t.integer  "measure_id"
-    t.integer  "tag_id"
-    t.integer  "color_id"
-    t.index ["brand_id"], name: "index_posts_on_brand_id", using: :btree
-    t.index ["color_id"], name: "index_posts_on_color_id", using: :btree
-    t.index ["item_id"], name: "index_posts_on_item_id", using: :btree
-    t.index ["measure_id"], name: "index_posts_on_measure_id", using: :btree
-    t.index ["tag_id"], name: "index_posts_on_tag_id", using: :btree
-  end
-
-  create_table "prices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "initial_price", null: false
+    t.string   "title",         null: false
+    t.string   "content",       null: false
+    t.string   "exhibit_day"
+    t.string   "soldout_day"
+    t.integer  "initial_price"
     t.integer  "soldout_price"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
@@ -147,11 +136,7 @@ ActiveRecord::Schema.define(version: 20200517142136) do
   end
 
   create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "hash1"
-    t.string   "hash2"
-    t.string   "hash3"
-    t.string   "hash4"
-    t.string   "hash5"
+    t.string   "hash"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

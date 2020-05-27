@@ -8,8 +8,8 @@ $(function() {
   function appendChildrenBox(insertHTML){
     var childSelectHtml = '';
     childSelectHtml = `<div class='item-main__content-select__added' id= 'children_wrapper'>
-                       <div class='item-main__content-select'>
-                         <select class="item-main__content-select-default" id="child_category" name="item[category_id]">
+                      <div class='item-main__content-select'>
+                        <select class="item-main__content-select-default" id="child_category" name="item[category_id]">
                           <option value="---" data-category="---">---</option>
                           ${insertHTML}
                         <select>

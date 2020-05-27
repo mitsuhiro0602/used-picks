@@ -1,69 +1,19 @@
 class ItemController < ApplicationController
+  before_action :set_item, only:[:destroy, :show, :edit, :update]
+
+  before_action :set_category, only: [:new, :create, :edit, :update]
+  before_action :confirmation, only: [:new, :edit]
 
     def index
       @items = Item.includes(:images).order('created_at DESC')
     end
 
-    def step1
+    def new
       @item = Item.new
       @item.images.new
-      # @item.build_brand_id
+      @item.build_brand
       @category_parent_array = Category.where(ancestry: nil)
     end
-
-    def step2
-      @item = Item.new
-    end
-
-    def step3
-      @item = Item.new
-    end
-
-
-  #   #step1以降のバリデーション追加
-
-  #   def save_step1_to_session
-  #     session[:nickname] = user_params[:nickname]
-  #     session[:email] = user_params[:email]
-  #     session[:password] = user_params[:password]
-  #     session[:last_name] = user_params[:last_name]
-  #     session[:first_name] = user_params[:first_name]
-  #     session[:last_name_kana] = user_params[:last_name_kana]
-  #     session[:first_name_kana] = user_params[:first_name_kana]
-  #     session[:birth_year] = user_params[:birth_year]
-  #     session[:birth_month] = user_params[:birth_month]
-  #     session[:birth_day] = user_params[:birth_day]
-
-  #     # バリデーション用に仮でインスタンスを作成
-
-  #     @item = Item.new(
-  #     nickname: session[:nickname], #sessionに保存された値を返す
-  #     email: session[:email],
-  #     password: session[:password],
-  #     last_name: session[:last_name],
-  #     first_name: session[:first_name],
-  #     last_name_kana: session[:last_name_kana],
-  #     first_name_kana: session[:first_name_kana],
-  #     birth_year: session[:birth_year],
-  #     birth_month: session[:birth_month],
-  #     birth_day: session[:birth_day]
-  #   )
-  #   render action: :step1 unless @user.valid?(:save_step1_to_session)
-  #   end
-
-  # #ステップ2以降のバリデーションの追加
-
-  # def save_step2_to_session
-  #   session[:tel] = user_params[:tel] #step2で入力された情報をsessionに代入する
-  #   # バリデーション用に仮でインスタンスを作成
-  #   @user =User.new(
-  #     email: session[:email],
-  #     password: session[:password],
-  #     tel: session[:tel]
-  #   )
-  #   render '/users/signup/sms' unless @user.valid?(:save_step2_to_session)
-  # end
-
 
     #親カテゴリーが選択された後に動くアクション
     def get_category_children
@@ -91,10 +41,44 @@ class ItemController < ApplicationController
 
     def create
       @item = Item.new(item_params)
-      if @item.save
-        redirect_to root_path, notice: "出品しました"
-      else
-        redirect_to step1_item_index, alert: "必須項目を入力してください"
+      tag_list = params[:item][:hash].split(",")
+        if @item.save
+          @item.save_items(tag_list)
+          redirect_to root_path, notice: "出品しました"
+        else
+          redirect_to new_item_path, alert: "必須項目を入力してください"
+        end
+    end
+
+    def edit
+      @category = @item.category
+      @child_categories = Category.where('ancestry = ?', "#{@category.parent.ancestry}")
+      @grand_child = Category.where('ancestry = ?', "#{@category.ancestry}")
+      @condition_array = Condition.all
+      @item.build_brand
+      @tag_list = @item.tags.pluck(:hash).join(",")
+    end
+
+    def update
+      tag_list = params[:item][:hash].split(",")
+        if @item.update(item_params)
+          @item.save_items(tag_list)
+          redirect_to root_path, notice: "編集しました"
+        else
+          redirect_to edit_item_path, alert: "必須項目を入力してください"
+        end
+    end
+
+    # 子カテゴリー
+    def category_children
+      children = Category.find(params[:name]).name
+      @category_children = Category.find_by(name: children, ancestry: nil ).children
+    end
+
+    # ログイン状態の確認
+    def confirmation #ログインしていない場合はユーザー登録に移動
+      unless user_signed_in?
+        redirect_to user_session_path, alert: "ログインしてください"
       end
     end
 
@@ -116,18 +100,68 @@ class ItemController < ApplicationController
       # end
     end
 
-    def edit
-    end
-
-    def update
-    end
-
     def destroy
     end
 
     private
 
     def item_params
-      params.require(:item).permit(:name, :price, images_attributes: [:image_url])
+      params.require(:item).permit(
+        :name,
+        :category_id,
+        :size_id,
+        :item_state_id,
+        images_attributes: [
+          :image_url,
+          :_destroy,
+          :id
+          ],
+        brands_attributes: [
+          :id,
+          :brand_name,
+          :brand_name_kana
+        ],
+        prices_attributes: [
+          :id,
+          :initial_price,
+          :soldout_price
+        ],
+        days_attributes: [
+          :id,
+          :exhibit_day,
+          :soldout_day
+        ],
+        measures_attributes: [
+          :id,
+          :shwidth,
+          :sllength,
+          :length,
+          :bustlength,
+          :west,
+          :tolength,
+          :inseam
+        ]
+      ).merge(user_id: current_user.id)
+    end
+
+    def set_item
+      @item = Item.find(params[:id])
+      @images = @item.images
+    end
+
+    def item_update_params
+      params.require(:item).permit(:name, :price, :description, :category_id)
+    end
+
+    def registered_images_params
+      params.require(:registered_images_ids).permit({ids: []})
+    end
+
+    def new_image_params
+      params.require(:new_images).permit({images: []})
+    end
+
+    def set_category
+      @category_parent_array = Category.where(ancestry: nil)
     end
 end
