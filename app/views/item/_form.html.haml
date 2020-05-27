@@ -3,7 +3,7 @@
     %h2.item-head__header
       商品情報を入力
   .item-main
-    = form_for @item, url: step2_item_index_path, method: :post, class: 'item-main__form' do |f|
+    = form_for(@item, url: new_item_path, class: 'item-main__form') do |f|
       .item-main__box
         .upload-box
           .item-main__header
@@ -34,6 +34,13 @@
             %span.form-require
               必須
             = f.text_field :name, class: 'item-main__content-textfield', placeholder: "商品名（40字まで)"
+        .item-main__content-form-group
+          .item-main__header
+          = f.label :description do
+            商品の説明
+          %span.form-require
+            必須
+          = f.text_area :description , class: 'textarea-default' , placeholder: "商品の説明（必須　１０００文字以内)(色、素材、重さ、定価、注意点など)例）2010年頃に１万円で購入したジャケットです。ライトグレーで傷はありません、あわせやすいのでおすすめです", rows:"5"
       .item-main__content
         %h3.subtitle
           商品の詳細
@@ -47,22 +54,21 @@
               = f.collection_select :category_id, @category_parent_array, :id, :name, {prompt: "---"}, class: 'item-main__content-select-default', id: 'parent_category'
           -# ブランド名選択
           .item-main__content-form-group
+          = f.fields_for :brand do |b|
             .item-main__content-head
-              = f.label :brand_id do
+              = b.label :brand_name do
                 ブランド名
               %span.form-elective
                 任意
-              = f.fields_for :brand do |b|
-                .item-main__content-select
-                  = b.text_field :brand_name, placeholder: "例）CHANEL", class: "item-main__content-textfield", type: "text"
+              .item-main__content-select
+                = b.text_field :brand_name, placeholder: "例）CHANEL", class: "item-main__content-textfield", type: "text"
             .item-main__content-head
-              = f.label :brand_id do
+              = b.label :brand_name_kana do
                 ブランド名（カナ）
               %span.form-elective
                 任意
-              = f.fields_for :brand do |b|
-                .item-main__content-select
-                  = b.text_field :brand_name_kana, placeholder: "例）シャネル" , class: "item-main__content-textfield", type: "text"
+              .item-main__content-select
+                = b.text_field :brand_name_kana, placeholder: "例）シャネル" , class: "item-main__content-textfield", type: "text"
           -# 商品の状態
           .item-main__content-form-group
             .item-main__contnet-head
@@ -76,50 +82,27 @@
           -# ハッシュタグ
           .item-main__content-form-group
             .item-main__content-head
-              = f.label :tag_id do
+              = f.label :tag do
                 ハッシュタグ
               %span.form-elective
                 任意
               .item-main__content-select
-                = f.collection_select( :tag_id, Tag.all, :id, :hash, {prompt: "---"}, {class: 'item-main__content-select-default'})
-                = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
-                = f.collection_select( :tag_id, Tag.all, :id, :hash, {prompt: "---"}, {class: 'item-main__content-select-default'})
-                = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
-                = f.collection_select( :tag_id, Tag.all, :id, :hash, {prompt: "---"}, {class: 'item-main__content-select-default'})
-                = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
-                = f.collection_select( :tag_id, Tag.all, :id, :hash, {prompt: "---"}, {class: 'item-main__content-select-default'})
-                = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
-                = f.collection_select( :tag_id, Tag.all, :id, :hash, {prompt: "---"}, {class: 'item-main__content-select-default'})
-                = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
+                = f.text_field :hash, value: @tag_list
       .item-main__content
-        = f.fields_for :post do |p|
-          .item-main__content-form-group
-            .item-main__content-head
-              = p.label :exhibit_day do
-                出品日
-              %span.form-require
-                必須
-              = p.date_select :exhibit_day, class: "item-main__content-textsize"
-          .item-main__content-form-group
-            .item-main__content-head
-              = p.label :soldout_day do
-                  売却日
-                %span.form-elective
-                  任意
-                = p.date_select :soldout_day, class: "item-main__content-textsize"
-          .item-main__content-form-group|
-            .item-main__content-head
-              = p.label :initial_price do
-                初期価格
-              %span.form-require
-                必須
-                = p.text_field :initial_price, calss: "item-main__content-textsize"
-                .item-main__content-head
-                = p.label :soldout_price do
-                  初期価格
-                %span.form-require
-                  必須
-                = p.text_field :soldout_price, calss: "item-main__content-textsize"
+        .item-main__content-form-group
+          .item-main__content-head
+            = f.label :exhibit_day do
+              出品日
+            %span.form-require
+              必須
+            = f.date_select :exhibit_day, class: "item-main__content-textsize"
+        .item-main__content-form-group
+          .item-main__content-head
+            = f.label :initial_price do
+              初期価格
+            %span.form-require
+              必須
+            = f.text_field :initial_price, calss: "item-main__content-textsize"
       .item-main__content
         = f.fields_for :measure do |m|
           .item-main__content-form-group
@@ -130,60 +113,44 @@
                 任意
               = m.text_field :shwidth, class: "item-main__content-textsize"
           .item-main__content-form-group
-                .item-main__content-head
-                = m.label :sllength do
-                  袖丈
-                %span.form-elective
-                  任意
-                = m.text_field :sllength, class: "item-main__content-textsize"
-                .item-main__content-head
-                = m.label :length do
-                  着丈
-                %span.form-elective
-                  任意
-                = m.text_field :length, class: "item-main__content-textsize"
-                .item-main__content-head
-                = m.label :bustlength do
-                  身幅
-                %span.form-elective
-                  任意
-                = m.text_field :bustlength, class: "item-main__content-textsize"
-                .item-main__content-head
-                = m.label :west do
-                  ウェスト
-                %span.form-elective
-                  任意
-                = m.text_field :west, class: "item-main__content-textsize"
-                .item-main__content-head
-                = m.label :tolength do
-                  総丈
-                %span.form-elective
-                  任意
-                = m.text_field :tolength, class: "item-main__content-textsize"
-                .item-main__content-head
-                = m.label :inseam do
-                  股下
-                %span.form-elective
-                  任意
-                = m.text_field :inseam, class: "item-main__content-textsize"
-      .item-main__content
-        = f.fields_for :post do |p|
-          .item-main__content-form-group
             .item-main__content-head
-              = p.label :title do
-                タイトル
-              %span.form-require
-                必須
-              = p.text_field :title, placeholder: "タイトルを入力してください", class: "item-main__content-select-default", type: "text"
-          .item-main__content-form-group
+              = m.label :sllength do
+                袖丈
+              %span.form-elective
+                任意
+              = m.text_field :sllength, class: "item-main__content-textsize"
             .item-main__content-head
-              = p.label :content do
-                本文
-              %span.form-require
-                必須
-              = p.text_area :content, class: "item-main__content-textarea", placeholder: "商品の説明（必須　１０００文字以内)(色、素材、重さ、定価、注意点など)例）2010年頃に１万円で購入したジャケットです。ライトグレーで傷はありません、あわせやすいのでおすすめです", rows:"10"
-                -# ボタン
-                .btn-box
-                  = f.submit '次へ進む', class: 'btn-box__red'
-                  = link_to root_path, class: 'btn-box__gray' do
-                    戻る
+              = m.label :length do
+                着丈
+              %span.form-elective
+                任意
+              = m.text_field :length, class: "item-main__content-textsize"
+            .item-main__content-head
+              = m.label :bustlength do
+                身幅
+              %span.form-elective
+                任意
+              = m.text_field :bustlength, class: "item-main__content-textsize"
+            .item-main__content-head
+              = m.label :west do
+                ウェスト
+              %span.form-elective
+                任意
+              = m.text_field :west, class: "item-main__content-textsize"
+            .item-main__content-head
+              = m.label :tolength do
+                総丈
+              %span.form-elective
+                任意
+              = m.text_field :tolength, class: "item-main__content-textsize"
+            .item-main__content-head
+              = m.label :inseam do
+                股下
+              %span.form-elective
+                任意
+              = m.text_field :inseam, class: "item-main__content-textsize"
+        -# ボタン
+        .btn-box
+          = f.submit '登録する', class: 'btn-box__red'
+          = link_to root_path, class: 'btn-box__gray' do
+            戻る

@@ -40,18 +40,33 @@ class ItemController < ApplicationController
     end
 
     def create
-      @item = Item.new(session[:item_params]) #itemモデルのsessionを引数で返す
-      @item.build_brand(session[:brands_attributes_after_step1]) #brandモデルのsessionを引数で返す
-      @item.build_image(session[:images_attributes_after_step1]) #imageモデルのsessionを引数で返す
-      @item.build_price(session[:prices_attributes_after_step2]) #priceモデルのsessionを引数で返す
-      @item.build_day(session[:days_attributes_after_step2]) #dayモデルのsessionを引数で返す
-      @item.build_measure(session[:measures_attributes_after_step2]) #measureモデルのsessionを引数で返す
-      @item.build_post(item_params[:post_attributes]) #今回のpostモデルを代入する
-      if @item.save
-        redirect_to root_path, notice: "出品しました"
-      else
-        redirect_to step1_item_index, alert: "必須項目を入力してください"
-      end
+      @item = Item.new(item_params)
+      tag_list = params[:item][:hash].split(",")
+        if @item.save
+          @item.save_items(tag_list)
+          redirect_to root_path, notice: "出品しました"
+        else
+          redirect_to new_item_path, alert: "必須項目を入力してください"
+        end
+    end
+
+    def edit
+      @category = @item.category
+      @child_categories = Category.where('ancestry = ?', "#{@category.parent.ancestry}")
+      @grand_child = Category.where('ancestry = ?', "#{@category.ancestry}")
+      @condition_array = Condition.all
+      @item.build_brand
+      @tag_list = @item.tags.pluck(:hash).join(",")
+    end
+
+    def update
+      tag_list = params[:item][:hash].split(",")
+        if @item.update(item_params)
+          @item.save_items(tag_list)
+          redirect_to root_path, notice: "編集しました"
+        else
+          redirect_to edit_item_path, alert: "必須項目を入力してください"
+        end
     end
 
     # 子カテゴリー
@@ -83,12 +98,6 @@ class ItemController < ApplicationController
       # else
       #   render index
       # end
-    end
-
-    def edit
-    end
-
-    def update
     end
 
     def destroy

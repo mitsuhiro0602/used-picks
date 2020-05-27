@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200521101242) do
+ActiveRecord::Schema.define(version: 20200525232857) do
 
   create_table "brands", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "brand_name"
@@ -66,13 +66,21 @@ ActiveRecord::Schema.define(version: 20200521101242) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "iteminfos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "soldout_day"
+    t.integer  "soldout_price"
+    t.integer  "item_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["item_id"], name: "index_iteminfos_on_item_id", using: :btree
+  end
+
   create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "user_id",       null: false
     t.integer  "post_id",       null: false
-    t.integer  "day_id"
     t.integer  "price_id"
     t.integer  "brand_id"
     t.integer  "category_id"
@@ -80,11 +88,11 @@ ActiveRecord::Schema.define(version: 20200521101242) do
     t.integer  "size_id"
     t.integer  "measure_id"
     t.integer  "tag_id"
-    t.integer  "color_id"
+    t.date     "exhibit_day"
+    t.integer  "initial_price"
+    t.string   "description"
     t.index ["brand_id"], name: "index_items_on_brand_id", using: :btree
     t.index ["category_id"], name: "index_items_on_category_id", using: :btree
-    t.index ["color_id"], name: "index_items_on_color_id", using: :btree
-    t.index ["day_id"], name: "index_items_on_day_id", using: :btree
     t.index ["item_state_id"], name: "index_items_on_item_state_id", using: :btree
     t.index ["measure_id"], name: "index_items_on_measure_id", using: :btree
     t.index ["post_id"], name: "index_items_on_post_id", using: :btree
@@ -114,13 +122,6 @@ ActiveRecord::Schema.define(version: 20200521101242) do
     t.string   "exhibit_day"
     t.string   "soldout_day"
     t.integer  "initial_price"
-    t.integer  "soldout_price"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  create_table "prices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "initial_price", null: false
     t.integer  "soldout_price"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
