@@ -16,4 +16,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'posts', to: 'posts#index'
+
+  #投稿ページの作成
+  get 'posts/new', to: 'posts#new'
+
 end
