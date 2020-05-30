@@ -23,7 +23,7 @@ class ItemController < ApplicationController
     # 子カテゴリーが選択された後に動くアクション
     def get_category_grandchildren
       #選択された子カテゴリーに紐づく孫カテゴリーの配列を取得する
-      @category_children = Category.find("#{params[:child_id]}").children
+      @category_grandchildren = Category.find("#{params[:child_id]}").children
     end
 
     #孫カテゴリーが選択された後に動くアクション
@@ -150,7 +150,7 @@ class ItemController < ApplicationController
     end
 
     def item_update_params
-      params.require(:item).permit(:name, :price, :description, :category_id)
+      params.require(:item).permit(:name, :price, :description, :category_id, :size_id, :brand_id)
     end
 
     def registered_images_params
