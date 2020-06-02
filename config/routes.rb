@@ -16,4 +16,7 @@ Rails.application.routes.draw do
     end
   end
 
+  #投稿ページの表示
+  resources :posts do
+  end
 end

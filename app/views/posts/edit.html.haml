@@ -1,0 +1,24 @@
+.item-container
+  .item-head
+    %h2.item-head__header
+      商品の説明文章を編集する
+  .item-main
+    = form_for(@post, class: 'item-main__form') do |f|
+      .item-main__content
+        .item-main__content-form-group
+          .item-main__content-head
+            = f.label :title do
+              タイトル
+            %span.form-require
+              必須
+            = f.text_field :title, class: 'item-main__content-textfield', placeholder: "タイトルを入力してください"
+        .item-main__content-form-group
+          .item-main__content-head
+            = f.label :content do
+              本文
+            %span.form-require
+              必須
+            = f.text_area :content, class: 'textarea-default', placeholder: "商品説明の本文を入力してください"
+        -# ボタン
+        .btn-box
+          = f.submit '編集する', class: 'btn-box__red'
