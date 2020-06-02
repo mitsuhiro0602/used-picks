@@ -117,20 +117,18 @@ ActiveRecord::Schema.define(version: 20200527124206) do
   end
 
   create_table "posts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "title",         null: false
-    t.string   "content",       null: false
-    t.string   "exhibit_day"
-    t.string   "soldout_day"
-    t.integer  "initial_price"
-    t.integer  "soldout_price"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.string   "title",      null: false
+    t.string   "content",    null: false
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_posts_on_user_id", using: :btree
   end
 
   create_table "sizes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "size",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "size",       default: ""
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.string   "ancestry"
     t.index ["ancestry"], name: "index_sizes_on_ancestry", using: :btree
   end
