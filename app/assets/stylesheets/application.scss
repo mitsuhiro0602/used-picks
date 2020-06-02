@@ -9,3 +9,16 @@
 @import "modules/item/new";
 @import "modules/item/edit";
 @import "bootstrap-datetimepicker";
+
+.notifications {
+  color: $white;
+  text-align: center;  
+  
+  .notice {
+    background-color: lime;
+  }
+
+  .alert {
+    background-color: alert_orange;
+  }
+}

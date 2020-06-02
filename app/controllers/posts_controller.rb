@@ -11,14 +11,14 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post.save
     if @post.save
-      redirect_to root_path
-      flash[:alert] = "作成しました"
-    else
+      flash[:notice] = "作成しました"
       binding.pry
-      redirect_to new_post_path
+
+      redirect_to root_path
+    else
       flash[:alert] = "必要項目を入力してください"
+      redirect_to new_post_path
     end
   end
 
