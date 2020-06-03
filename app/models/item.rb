@@ -15,7 +15,7 @@ class Item < ApplicationRecord
   accepts_nested_attributes_for :brand
   accepts_nested_attributes_for :day
   accepts_nested_attributes_for :price
-  accepts_nested_attributes_for :measure
+  accepts_nested_attributes_for :measure, allow_destroy: true
   # accepts_nested_attributes_for :post
 
   # バリデーション

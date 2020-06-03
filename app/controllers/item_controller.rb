@@ -12,6 +12,7 @@ class ItemController < ApplicationController
       @item = Item.new
       @item.images.new
       @item.build_brand
+      @item.build_measure
       @category_parent_array = Category.where(ancestry: nil)
     end
 
@@ -121,16 +122,6 @@ class ItemController < ApplicationController
           :brand_name,
           :brand_name_kana
         ],
-        prices_attributes: [
-          :id,
-          :initial_price,
-          :soldout_price
-        ],
-        days_attributes: [
-          :id,
-          :exhibit_day,
-          :soldout_day
-        ],
         measures_attributes: [
           :id,
           :shwidth,
@@ -150,7 +141,7 @@ class ItemController < ApplicationController
     end
 
     def item_update_params
-      params.require(:item).permit(:name, :price, :description, :category_id, :size_id, :brand_id)
+      params.require(:item).permit(:name, :price, :description, :category_id, :size_id, :brand_id, :measure_id)
     end
 
     def registered_images_params

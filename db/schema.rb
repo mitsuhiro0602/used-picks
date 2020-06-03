@@ -112,8 +112,6 @@ ActiveRecord::Schema.define(version: 20200527124206) do
     t.integer  "inseam"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "ancestry"
-    t.index ["ancestry"], name: "index_measures_on_ancestry", using: :btree
   end
 
   create_table "posts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

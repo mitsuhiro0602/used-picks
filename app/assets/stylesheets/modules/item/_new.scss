@@ -83,10 +83,16 @@
   &__content {
     padding: 40px;
     border-top: 1px solid #eee;
-    &__form-group {
+    &-form-group {
       align-items: center;
       width: 100%;
       margin-top: 16px;
+    }
+    &-flex-box {
+      align-items: center;
+      width: 100%;
+      margin-top: 16px;
+      display: flex;
     }
     &-head {
       color: #222;
@@ -132,7 +138,7 @@
       background-color: #fff;
       height: 16px;
       padding: 10px 16px 8px;
-      width: 10%;
+      width: 50%;
     }
     &-select {
       width: 100%;
