@@ -3,7 +3,7 @@
     %h2.item-head__header
       商品情報を入力
   .item-main
-    = form_for(@item, url: new_item_path, class: 'item-main__form') do |f|
+    = form_for(@item, url: { controller: 'item', action: 'create'}, class: 'item-main__form') do |f|
       .item-main__box
         .upload-box
           .item-main__header
@@ -143,20 +143,21 @@
                 .item-main__content-select
                 = m.text_field :inseam, class: "item-main__content-textsize"
       .item-main__content
-        .item-main__content-flex-box
-          .item-main__content-head
-            = f.label :exhibit_day do
-              出品日
-            %span.form-require
-              必須
-            = f.date_select :exhibit_day, class: "item-main__content-textsize"
-        .item-main__content-flex-box
-          .item-main__content-head
-            = f.label :initial_price do
-              初期価格
-            %span.form-require
-              必須
-            = f.text_field :initial_price, calss: "item-main__content-textsize"
+        .item-main__content-form-group
+          .item-main__content-left-box
+            .item-main__content-head
+              = f.label :exhibit_day do
+                出品日
+              %span.form-require
+                必須
+              = f.date_select :exhibit_day, class: "item-main__content-textsize"
+          .item-main__content-right-box
+            .item-main__content-head
+              = f.label :initial_price do
+                初期価格
+              %span.form-require
+                必須
+              = f.text_field :initial_price, calss: "item-main__content-textsize"
         -# ボタン
         .btn-box
           = f.submit '登録する', class: 'btn-box__red'

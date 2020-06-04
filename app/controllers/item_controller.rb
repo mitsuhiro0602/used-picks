@@ -16,6 +16,18 @@ class ItemController < ApplicationController
       @category_parent_array = Category.where(ancestry: nil)
     end
 
+    def create
+      @item = Item.new(item_params)
+      tag_list = params[:item][:hash].split(",")
+        if @item.save
+          @item.save_items(tag_list)
+          redirect_to root_path, notice: "出品しました"
+        else
+          binding.pry
+          redirect_to new_item_path, alert: "必須項目を入力してください"
+        end
+    end
+
     #親カテゴリーが選択された後に動くアクション
     def get_category_children
       #選択された親カテゴリーに紐づく子カテゴリーの配列を取得する
@@ -38,17 +50,6 @@ class ItemController < ApplicationController
           @sizes = related_size_parent.children  #紐づいたサイズ（親）の子供の配列を取得する
         end
       end
-    end
-
-    def create
-      @item = Item.new(item_params)
-      tag_list = params[:item][:hash].split(",")
-        if @item.save
-          @item.save_items(tag_list)
-          redirect_to root_path, notice: "出品しました"
-        else
-          redirect_to new_item_path, alert: "必須項目を入力してください"
-        end
     end
 
     def edit
