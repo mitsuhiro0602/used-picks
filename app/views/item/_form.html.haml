@@ -56,14 +56,14 @@
           .item-main__content-form-group
           = f.fields_for :brand do |b|
             .item-main__content-head
-              = b.label :brand_name do
+              %label
                 ブランド名
               %span.form-elective
                 任意
               .item-main__content-select
                 = b.text_field :brand_name, placeholder: "例）CHANEL", class: "item-main__content-textfield", type: "text"
             .item-main__content-head
-              = b.label :brand_name_kana do
+              %label
                 ブランド名（カナ）
               %span.form-elective
                 任意
@@ -80,14 +80,14 @@
                 = f.collection_select( :item_state_id, ItemState.all, :id, :state, {prompt: "---"}, {class: 'item-main__content-select-default'})
                 = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
           -# ハッシュタグ
-          .item-main__content-form-group
-            .item-main__content-head
-              = f.label :tag do
-                ハッシュタグ
-              %span.form-elective
-                任意
-              .item-main__content-select
-                = f.text_field :hash, value: @tag_list
+          -# .item-main__content-form-group
+          -#   .item-main__content-head
+          -#     = f.label :tag do
+          -#       ハッシュタグ
+          -#     %span.form-elective
+          -#       任意
+          -#     .item-main__content-select
+          -#       = f.text_field :hash, value: @tag_list
           -# 採寸入力
           .item-main__content-flex-box
             = f.fields_for :measure do |m|

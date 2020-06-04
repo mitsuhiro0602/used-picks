@@ -18,14 +18,20 @@ class ItemController < ApplicationController
 
     def create
       @item = Item.new(item_params)
-      tag_list = params[:item][:hash].split(",")
-        if @item.save
-          @item.save_items(tag_list)
-          redirect_to root_path, notice: "出品しました"
-        else
-          binding.pry
-          redirect_to new_item_path, alert: "必須項目を入力してください"
-        end
+      @item.build_brand(item_params[:brand_attributes])
+      @item.build_measure(item_params[:measure_attributes])
+      # tag_list = params[:item][:hash].split(",")
+      @item.save
+      binding.pry
+      if @item.save
+        # @item.save_items(tag_list)
+        flash[:notice] = "出品しました"
+        redirect_to root_path
+      else
+        binding.pry
+        flash[:alert] = "必須項目を入力してください"
+        redirect_to new_item_path
+      end
     end
 
     #親カテゴリーが選択された後に動くアクション
@@ -110,20 +116,19 @@ class ItemController < ApplicationController
     def item_params
       params.require(:item).permit(
         :name,
+        :description,
         :category_id,
         :size_id,
         :item_state_id,
-        images_attributes: [
-          :image_url,
-          :_destroy,
-          :id
-          ],
-        brands_attributes: [
+        # :tag_id,
+        :exhibit_day,
+        :initial_price,
+        brand_attributes: [
           :id,
           :brand_name,
           :brand_name_kana
         ],
-        measures_attributes: [
+        measure_attributes: [
           :id,
           :shwidth,
           :sllength,
@@ -132,6 +137,11 @@ class ItemController < ApplicationController
           :west,
           :tolength,
           :inseam
+        ],
+        images_attributes: [
+          :image_url,
+          :_destroy,
+          :id
         ]
       ).merge(user_id: current_user.id)
     end
