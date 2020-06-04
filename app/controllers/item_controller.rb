@@ -21,9 +21,8 @@ class ItemController < ApplicationController
       @item.build_brand(item_params[:brand_attributes])
       @item.build_measure(item_params[:measure_attributes])
       # tag_list = params[:item][:hash].split(",")
-      @item.save
-      binding.pry
       if @item.save
+        binding.pry
         # @item.save_items(tag_list)
         flash[:notice] = "出品しました"
         redirect_to root_path

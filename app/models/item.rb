@@ -15,7 +15,10 @@ class Item < ApplicationRecord
   # accepts_nested_attributes_for :post
 
   # バリデーション
-  validates :name, presence: true
+  validates :name,                presence: true
+  validates :description,         presence: true
+  validates :category_id,         presence: true
+  validates :price,               presence: true
 
   #タグを保存するためのメソッド
   # def save_items(tags)
