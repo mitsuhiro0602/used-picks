@@ -3,7 +3,7 @@
     %h2.item-head__header
       商品情報を入力
   .item-main
-    = form_for(@item, url: new_item_path, class: 'item-main__form') do |f|
+    = form_for(@item, url: { controller: 'item', action: 'create'}, class: 'item-main__form') do |f|
       .item-main__box
         .upload-box
           .item-main__header
@@ -40,7 +40,7 @@
             商品の説明
           %span.form-require
             必須
-          = f.text_area :description , class: 'textarea-default' , placeholder: "商品の説明（必須　１０００文字以内)(色、素材、重さ、定価、注意点など)例）2010年頃に１万円で購入したジャケットです。ライトグレーで傷はありません、あわせやすいのでおすすめです", rows:"5"
+          = f.text_area :description , class: 'item-main__content-textarea' , placeholder: "商品の説明（必須　１０００文字以内)(色、素材、重さ、定価、注意点など)例）2010年頃に１万円で購入したジャケットです。ライトグレーで傷はありません、あわせやすいのでおすすめです", rows:"5"
       .item-main__content
         %h3.subtitle
           商品の詳細
@@ -56,14 +56,14 @@
           .item-main__content-form-group
           = f.fields_for :brand do |b|
             .item-main__content-head
-              = b.label :brand_name do
+              %label
                 ブランド名
               %span.form-elective
                 任意
               .item-main__content-select
                 = b.text_field :brand_name, placeholder: "例）CHANEL", class: "item-main__content-textfield", type: "text"
             .item-main__content-head
-              = b.label :brand_name_kana do
+              %label
                 ブランド名（カナ）
               %span.form-elective
                 任意
@@ -80,75 +80,84 @@
                 = f.collection_select( :item_state_id, ItemState.all, :id, :state, {prompt: "---"}, {class: 'item-main__content-select-default'})
                 = icon('fas', 'chevron-down', class: "item-main__content-select_icon")
           -# ハッシュタグ
-          .item-main__content-form-group
-            .item-main__content-head
-              = f.label :tag do
-                ハッシュタグ
-              %span.form-elective
-                任意
-              .item-main__content-select
-                = f.text_field :hash, value: @tag_list
+          -# .item-main__content-form-group
+          -#   .item-main__content-head
+          -#     = f.label :tag do
+          -#       ハッシュタグ
+          -#     %span.form-elective
+          -#       任意
+          -#     .item-main__content-select
+          -#       = f.text_field :hash, value: @tag_list
+          -# 採寸入力
+          .item-main__content-flex-box
+            = f.fields_for :measure do |m|
+              .item-main__content-head
+                = m.label :shwidth do
+                  肩幅
+                %span.form-elective
+                  任意
+                .item-main__content-select
+                  = m.text_field :shwidth, class: "item-main__content-textsize"
+              .item-main__content-head
+                = m.label :sllength do
+                  そで丈
+                %span.form-elective
+                  任意
+                .item-main__content-select
+                  = m.text_field :sllength, class: "item-main__content-textsize"
+              .item-main__content-head
+                = m.label :length do
+                  着丈
+                %span.form-elective
+                  任意
+                .item-main__content-select
+                = m.text_field :length, class: "item-main__content-textsize"
+              .item-main__content-head
+                = m.label :bustlength do
+                  身幅
+                %span.form-elective
+                  任意
+                .item-main__content-select
+                = m.text_field :bustlength, class: "item-main__content-textsize"
+          .item-main__content-flex-box
+            = f.fields_for :measure do |m|
+              .item-main__content-head
+                = m.label :west do
+                  ウェスト
+                %span.form-elective
+                  任意
+                .item-main__content-select
+                = m.text_field :west, class: "item-main__content-textsize"
+              .item-main__content-head
+                = m.label :tolength do
+                  総丈
+                %span.form-elective
+                  任意
+                .item-main__content-select
+                = m.text_field :tolength, class: "item-main__content-textsize"
+              .item-main__content-head
+                = m.label :inseam do
+                  股下
+                %span.form-elective
+                  任意
+                .item-main__content-select
+                = m.text_field :inseam, class: "item-main__content-textsize"
       .item-main__content
         .item-main__content-form-group
-          .item-main__content-head
-            = f.label :exhibit_day do
-              出品日
-            %span.form-require
-              必須
-            = f.date_select :exhibit_day, class: "item-main__content-textsize"
-        .item-main__content-form-group
-          .item-main__content-head
-            = f.label :initial_price do
-              初期価格
-            %span.form-require
-              必須
-            = f.text_field :initial_price, calss: "item-main__content-textsize"
-      .item-main__content
-        = f.fields_for :measure do |m|
-          .item-main__content-form-group
+          .item-main__content-left-box
             .item-main__content-head
-              = m.label :shwidth do
-                肩幅
-              %span.form-elective
-                任意
-              = m.text_field :shwidth, class: "item-main__content-textsize"
-          .item-main__content-form-group
+              = f.label :exhibit_day do
+                出品日
+              %span.form-require
+                必須
+              = f.date_select :exhibit_day, class: "item-main__content-textsize"
+          .item-main__content-right-box
             .item-main__content-head
-              = m.label :sllength do
-                袖丈
-              %span.form-elective
-                任意
-              = m.text_field :sllength, class: "item-main__content-textsize"
-            .item-main__content-head
-              = m.label :length do
-                着丈
-              %span.form-elective
-                任意
-              = m.text_field :length, class: "item-main__content-textsize"
-            .item-main__content-head
-              = m.label :bustlength do
-                身幅
-              %span.form-elective
-                任意
-              = m.text_field :bustlength, class: "item-main__content-textsize"
-            .item-main__content-head
-              = m.label :west do
-                ウェスト
-              %span.form-elective
-                任意
-              = m.text_field :west, class: "item-main__content-textsize"
-            .item-main__content-head
-              = m.label :tolength do
-                総丈
-              %span.form-elective
-                任意
-              = m.text_field :tolength, class: "item-main__content-textsize"
-            .item-main__content-head
-              = m.label :inseam do
-                股下
-              %span.form-elective
-                任意
-              = m.text_field :inseam, class: "item-main__content-textsize"
+              = f.label :initial_price do
+                初期価格
+              %span.form-require
+                必須
+              = f.text_field :initial_price, calss: "item-main__content-textsize"
         -# ボタン
         .btn-box
           = f.submit '登録する', class: 'btn-box__red'

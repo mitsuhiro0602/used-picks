@@ -12,7 +12,25 @@ class ItemController < ApplicationController
       @item = Item.new
       @item.images.new
       @item.build_brand
+      @item.build_measure
       @category_parent_array = Category.where(ancestry: nil)
+    end
+
+    def create
+      @item = Item.new(item_params)
+      @item.build_brand(item_params[:brand_attributes])
+      @item.build_measure(item_params[:measure_attributes])
+      # tag_list = params[:item][:hash].split(",")
+      if @item.save
+        binding.pry
+        # @item.save_items(tag_list)
+        flash[:notice] = "出品しました"
+        redirect_to root_path
+      else
+        binding.pry
+        flash[:alert] = "必須項目を入力してください"
+        redirect_to new_item_path
+      end
     end
 
     #親カテゴリーが選択された後に動くアクション
@@ -37,17 +55,6 @@ class ItemController < ApplicationController
           @sizes = related_size_parent.children  #紐づいたサイズ（親）の子供の配列を取得する
         end
       end
-    end
-
-    def create
-      @item = Item.new(item_params)
-      tag_list = params[:item][:hash].split(",")
-        if @item.save
-          @item.save_items(tag_list)
-          redirect_to root_path, notice: "出品しました"
-        else
-          redirect_to new_item_path, alert: "必須項目を入力してください"
-        end
     end
 
     def edit
@@ -108,30 +115,19 @@ class ItemController < ApplicationController
     def item_params
       params.require(:item).permit(
         :name,
+        :description,
         :category_id,
         :size_id,
         :item_state_id,
-        images_attributes: [
-          :image_url,
-          :_destroy,
-          :id
-          ],
-        brands_attributes: [
+        # :tag_id,
+        :exhibit_day,
+        :initial_price,
+        brand_attributes: [
           :id,
           :brand_name,
           :brand_name_kana
         ],
-        prices_attributes: [
-          :id,
-          :initial_price,
-          :soldout_price
-        ],
-        days_attributes: [
-          :id,
-          :exhibit_day,
-          :soldout_day
-        ],
-        measures_attributes: [
+        measure_attributes: [
           :id,
           :shwidth,
           :sllength,
@@ -140,6 +136,11 @@ class ItemController < ApplicationController
           :west,
           :tolength,
           :inseam
+        ],
+        images_attributes: [
+          :image_url,
+          :_destroy,
+          :id
         ]
       ).merge(user_id: current_user.id)
     end
@@ -150,7 +151,7 @@ class ItemController < ApplicationController
     end
 
     def item_update_params
-      params.require(:item).permit(:name, :price, :description, :category_id, :size_id, :brand_id)
+      params.require(:item).permit(:name, :price, :description, :category_id, :size_id, :brand_id, :measure_id)
     end
 
     def registered_images_params

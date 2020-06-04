@@ -79,24 +79,20 @@ ActiveRecord::Schema.define(version: 20200527124206) do
     t.string   "name"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.date     "exhibit_day"
+    t.integer  "initial_price"
+    t.string   "description"
     t.integer  "user_id",       null: false
-    t.integer  "post_id",       null: false
-    t.integer  "price_id"
     t.integer  "brand_id"
     t.integer  "category_id"
     t.integer  "item_state_id"
     t.integer  "size_id"
     t.integer  "measure_id"
     t.integer  "tag_id"
-    t.date     "exhibit_day"
-    t.integer  "initial_price"
-    t.string   "description"
     t.index ["brand_id"], name: "index_items_on_brand_id", using: :btree
     t.index ["category_id"], name: "index_items_on_category_id", using: :btree
     t.index ["item_state_id"], name: "index_items_on_item_state_id", using: :btree
     t.index ["measure_id"], name: "index_items_on_measure_id", using: :btree
-    t.index ["post_id"], name: "index_items_on_post_id", using: :btree
-    t.index ["price_id"], name: "index_items_on_price_id", using: :btree
     t.index ["size_id"], name: "index_items_on_size_id", using: :btree
     t.index ["tag_id"], name: "index_items_on_tag_id", using: :btree
     t.index ["user_id"], name: "index_items_on_user_id", using: :btree
@@ -112,8 +108,6 @@ ActiveRecord::Schema.define(version: 20200527124206) do
     t.integer  "inseam"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "ancestry"
-    t.index ["ancestry"], name: "index_measures_on_ancestry", using: :btree
   end
 
   create_table "posts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
