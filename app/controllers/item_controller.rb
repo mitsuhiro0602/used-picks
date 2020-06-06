@@ -91,21 +91,17 @@ class ItemController < ApplicationController
     end
 
     def show
-      # if user_signed_in?
-      #   @item = Item.find(params[:id])
-      #   @user = User.find(@item.seller_id)
-      #   @box = Item.order("RAND()").limit(6)
-      #   @smallcategory = Category.find(@item.category_id)
-      #   @category = @smallcategory.parent # unless Category.find(@item.category_id)
-      #   @bigcategory = @category.parent
-      #   @brand = Brand.find(@item.brand_id)
-      #   @delivery = DeliveryDay.find(@item.delivery_day_id)
-      #   @address = Prefecture.find(@item.prefecture_id)
-      #   @condition = Condition.find(@item.condition_id)
-      #   @postage = Postage.find(@item.postage_id)
-      # else
-      #   render index
-      # end
+      if user_signed_in?
+        @item = Item.find(params[:id])
+        @user = User.find(@item.user_id)
+        @images = Item.includes(:image)
+        @box = Item.order("RAND()").limit(6)
+        @smallcategory = Category.find(@item.category_id)
+        @category = @smallcategory.parent # unless Category.find(@item.category_id)
+        @bigcategory = @category.parent
+      else
+        render index
+      end
     end
 
     def destroy

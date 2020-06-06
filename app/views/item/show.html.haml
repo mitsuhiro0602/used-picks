@@ -1,0 +1,95 @@
+%section
+.item__details
+  %h2.item__details__name
+    = @item.name
+  .item_details__main-content
+    .item__details__main-content__box
+      .main_photo
+        .photos
+          = image_tag "#{@item.images[0].image_ulr}", class: "photos"
+          -if @item.item_state_id == 4
+            .show-soldout
+            .show-soldout__text
+              売却済
+        .small_photos
+          - @images.each do |image|
+            = image_tag image.image_url,to_s, class: "small_photo"
+      %table.item_detail_table
+        %tbody
+          %tr
+            %th 出品者
+            %td
+              .user_name
+                = link_to "", class: "name" do
+                  = @user.nickname
+          %tr
+            %th 状態
+            %td
+              = @item.item_states.state
+          %tr
+            %th カテゴリー
+            %td
+              = link_to '/' do
+                = @bigcategory.name
+                %br
+              = link_to '/' do
+                %i.fas.fa-chevron-right
+                = @category.name
+                %br
+              = link_to '/' do
+                %i.fas.fa-chevron-right
+                = @smallcategory.name
+          %tr
+            %th ブランド
+              = @item.brand.name
+          %tr
+            %th 出品日
+              = @item.initial_day
+    .item_price_box
+      %span.item_price
+        = "¥#{@item.price.to_s(:delimited, delimiter: ',')}"
+    .item-buy-btn
+      -if user_signed_in?
+        = link_to '編集画面に進む', edit_item_path(@item), class: "item-buy-btn__destroy"
+        %span or
+        = link_to '削除する', item_path(@item), class: "item-buy-btn__destroy", method: :delete
+      - else
+        = link_to 'ログインしてください', new_user_session_path, class: 'item-buy-btn'
+%section
+.message_container
+  .message_content
+    .message_content__box
+      -# コメント表示
+      - if @comments
+        - @comments.each do |comment|
+          .message_content__box__list
+            .message_content__box__list__icon
+              = icon('fa', 'user')
+            .message_content__box__list__content
+              .message_content__box__list__content__name
+                = link_to comment.user.nickname "/users/#{comment.user_id}"
+              .message_content__box__list__content__message
+                = comment.text
+              .message_content__box__list__content__date
+                = comment.updated_at
+        -# コメントを投稿する
+      - if user_signed_in?
+        = form_for [@item, @comment] do |f|
+          = f.text_area :text, disabled: true
+          %br
+          = f.submit "コメントする", class: "comment-btn"
+      - else
+        = link_to 'ログインしてください', new_user_session_path, class: 'item-buy-btn'
+-# 前のページ、次のページのリンク
+.links
+  %ul
+    %li
+      - if @item.next.present?
+        = link_to item_path(@item.next) do
+          <
+          = @item.next.name
+    %li
+      -if @item.previous.present?
+        = link_to item_path(@item.previous) do
+          = @item.previous.name
+          >
