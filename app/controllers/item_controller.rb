@@ -5,7 +5,8 @@ class ItemController < ApplicationController
   before_action :confirmation, only: [:new, :edit]
 
     def index
-      @items = Item.includes(:images).order('created_at DESC')
+      @items = Item.all.order('created_at DESC')
+      @images = Image.all
     end
 
     def new
