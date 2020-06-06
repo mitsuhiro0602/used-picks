@@ -1,0 +1,82 @@
+body {
+  overflow: scroll;
+}
+
+.header {
+  background: #026aa7;
+  padding: 10px;
+}
+
+.header .nav .header_menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.header .nav .header_menu li {
+  list-style: none;
+  color: #fff;
+}
+
+.header .nav .header_menu li a {
+  color: #fff;
+}
+
+.header .nav .header_menu__title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.header .nav .header_menu__inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.header .nav .header_menu__inner .item-new:after {
+  font-family: "Font Awesome 5 Free";
+  content: "\f044";
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 20px;
+}
+
+.submitBtn {
+  background: #29b744;
+  color: #fff;
+  width: 200px;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 90px;
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
+  cursor: pointer;
+}
+
+.submitBtn:hover {
+  opacity: .6;
+}
+
+.accountPage_link > a {
+  color: #0075c1;
+}
+/*# sourceMappingURL=custom.css.map */
