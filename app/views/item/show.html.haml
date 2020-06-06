@@ -56,30 +56,29 @@
       - else
         = link_to 'ログインしてください', new_user_session_path, class: 'item-buy-btn'
 %section
-.message_container
-  .message_content
-    .message_content__box
-      -# コメント表示
-      - if @comments
-        - @comments.each do |comment|
-          .message_content__box__list
-            .message_content__box__list__icon
-              = icon('fa', 'user')
-            .message_content__box__list__content
-              .message_content__box__list__content__name
-                = link_to comment.user.nickname "/users/#{comment.user_id}"
-              .message_content__box__list__content__message
-                = comment.text
-              .message_content__box__list__content__date
-                = comment.updated_at
-        -# コメントを投稿する
-      - if user_signed_in?
-        = form_for [@item, @comment] do |f|
-          = f.text_area :text, disabled: true
-          %br
-          = f.submit "コメントする", class: "comment-btn"
-      - else
-        = link_to 'ログインしてください', new_user_session_path, class: 'item-buy-btn'
+.message_content
+  .message_content__box
+    -# コメント表示
+    - if @comments
+      - @comments.each do |comment|
+        .message_content__box__list
+          .message_content__box__list__icon
+            = icon('fa', 'user')
+          .message_content__box__list__content
+            .message_content__box__list__content__name
+              = link_to comment.user.nickname "/users/#{comment.user_id}"
+            .message_content__box__list__content__message
+              = comment.text
+            .message_content__box__list__content__date
+              = comment.updated_at
+      -# コメントを投稿する
+    - if user_signed_in?
+      = form_for [@item, @comment] do |f|
+        = f.text_area :text, disabled: true
+        %br
+        = f.submit "コメントする", class: "comment-btn"
+    - else
+      = link_to 'ログインしてください', new_user_session_path, class: 'item-buy-btn'
 -# 前のページ、次のページのリンク
 .links
   %ul
