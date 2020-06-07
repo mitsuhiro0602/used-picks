@@ -3,5 +3,6 @@ class AddColumnItems < ActiveRecord::Migration[5.0]
     add_column :items, :exhibit_day, :date
     add_column :items, :initial_price, :integer
     add_column :items, :description, :string
+    add_column :items, :material, :string
   end
 end

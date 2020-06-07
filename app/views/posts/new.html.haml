@@ -3,8 +3,23 @@
     %h2.item-head__header
       商品の説明文章を作成
   .item-main
+    = button_tag type: 'button', onclick: "", id: 'templatetitle' do
+      タイトル挿入
     = form_for(@post, class: 'item-main__form') do |f|
       .item-main__content
+        .item-main__content-form-group
+          .item-main__content-head
+            = f.label '商品名' 
+            %span.form-require
+              必須
+            = f.collection_select(:item_id, Item.all, :id, :name, {prompt: "---"}, {class: 'item-main__content-select-default'} )
+          .item-main__content-form-group
+            .item-main__content-head
+              = f.label :title do
+                タイトル
+              %span.form-require
+                必須
+              = f.text_field :title, class: 'item-main__content-textfield', placeholder: "タイトルを入力してください"
         .item-main__content-form-group
           .item-main__content-head
             = f.label :title do

@@ -4,6 +4,7 @@ class CreatePosts < ActiveRecord::Migration[5.0]
       t.string :title, null: false
       t.string :content, null: false
       t.references :user, foregin_key: true
+      t.references :item, foregin_key: true
       t.timestamps
     end
   end

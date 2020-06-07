@@ -79,9 +79,6 @@ ActiveRecord::Schema.define(version: 20200527124206) do
     t.string   "name"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.date     "exhibit_day"
-    t.integer  "initial_price"
-    t.string   "description"
     t.integer  "user_id",       null: false
     t.integer  "brand_id"
     t.integer  "category_id"
@@ -89,10 +86,16 @@ ActiveRecord::Schema.define(version: 20200527124206) do
     t.integer  "size_id"
     t.integer  "measure_id"
     t.integer  "tag_id"
+    t.integer  "post_id"
+    t.date     "exhibit_day"
+    t.integer  "initial_price"
+    t.string   "description"
+    t.string   "material"
     t.index ["brand_id"], name: "index_items_on_brand_id", using: :btree
     t.index ["category_id"], name: "index_items_on_category_id", using: :btree
     t.index ["item_state_id"], name: "index_items_on_item_state_id", using: :btree
     t.index ["measure_id"], name: "index_items_on_measure_id", using: :btree
+    t.index ["post_id"], name: "index_items_on_post_id", using: :btree
     t.index ["size_id"], name: "index_items_on_size_id", using: :btree
     t.index ["tag_id"], name: "index_items_on_tag_id", using: :btree
     t.index ["user_id"], name: "index_items_on_user_id", using: :btree
@@ -114,8 +117,10 @@ ActiveRecord::Schema.define(version: 20200527124206) do
     t.string   "title",      null: false
     t.string   "content",    null: false
     t.integer  "user_id"
+    t.integer  "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_posts_on_item_id", using: :btree
     t.index ["user_id"], name: "index_posts_on_user_id", using: :btree
   end
 

@@ -119,6 +119,7 @@ class ItemController < ApplicationController
         :category_id,
         :size_id,
         :item_state_id,
+        :material,
         # :tag_id,
         :exhibit_day,
         :initial_price,
