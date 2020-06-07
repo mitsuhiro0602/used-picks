@@ -9,7 +9,7 @@ body {
 
 //ヘッダー部分を記述
 .header {
-  background: #026aa7;
+  background: #3ccace;
   padding: 10px;
   .nav {
     .header_menu {
@@ -55,7 +55,7 @@ body {
 
 //ボタンの実装
 .submitBtn {
-  background: #29b744;
+  background: #3ccace;
   color: #fff;
   width: 200px;
   margin-top: 20px;
@@ -71,6 +71,6 @@ body {
 //devise_shared_links
 .accountPage_link {
   & > a {
-    color: #0075c1;
+    color: #3ccace;
   }
 }
