@@ -20,6 +20,14 @@ class Item < ApplicationRecord
   validates :category_id,         presence: true
   validates :price,               presence: true
 
+  def previous
+    Item.where("id < ?", self.id).order("id DESC").first
+  end
+
+  def next
+    Item.where("id > ?", self.id).order("id ASC").first
+  end
+
   #タグを保存するためのメソッド
   # def save_items(tags)
   #   current_tags = self.tags.pluck(:hash) unless self.tags.nil?

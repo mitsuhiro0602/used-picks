@@ -6,14 +6,14 @@
     .item__details__main-content__box
       .main_photo
         .photos
-          = image_tag "#{@item.images[0].image_ulr}", class: "photos"
+          = image_tag "#{@item.images[0].image_url}", class: "photos"
           -if @item.item_state_id == 4
             .show-soldout
             .show-soldout__text
               売却済
         .small_photos
-          - @images.each do |image|
-            = image_tag image.image_url,to_s, class: "small_photo"
+          - @item.images.each do |image|
+            = image_tag image.image_url.to_s, class: "small_photo"
       %table.item_detail_table
         %tbody
           %tr
@@ -25,7 +25,7 @@
           %tr
             %th 状態
             %td
-              = @item.item_states.state
+              = @itemstate.state
           %tr
             %th カテゴリー
             %td
@@ -41,20 +41,27 @@
                 = @smallcategory.name
           %tr
             %th ブランド
-              = @item.brand.name
+            %td
+              = @item.brand.brand_name
           %tr
             %th 出品日
-              = @item.initial_day
+            %td
+              = @item.exhibit_day
     .item_price_box
-      %span.item_price
-        = "¥#{@item.price.to_s(:delimited, delimiter: ',')}"
+      %span.item_price_box__value
+        = "¥#{@item.initial_price.to_s(:delimited, delimiter: ',')}"
     .item-buy-btn
       -if user_signed_in?
-        = link_to '編集画面に進む', edit_item_path(@item), class: "item-buy-btn__destroy"
-        %span or
-        = link_to '削除する', item_path(@item), class: "item-buy-btn__destroy", method: :delete
+        = link_to '編集画面に進む', edit_item_path(@item), class: "item_buy_btn"
+        %span.item__details__span or
+        = link_to '文章を作成する', new_post_path(@post), class: "item_post_btn"
+        %span.item__details__span or
+        = link_to '削除する', item_path(@item), class: "item_del_btn", method: :delete
       - else
-        = link_to 'ログインしてください', new_user_session_path, class: 'item-buy-btn'
+        = link_to 'ログインしてください', new_user_session_path, class: 'item_buy_btn'
+    .item_description_box
+      .item_description_box__inner
+        = @item.description
 %section
 .message_content
   .message_content__box
@@ -72,23 +79,23 @@
             .message_content__box__list__content__date
               = comment.updated_at
       -# コメントを投稿する
-    - if user_signed_in?
-      = form_for [@item, @comment] do |f|
-        = f.text_area :text, disabled: true
-        %br
-        = f.submit "コメントする", class: "comment-btn"
-    - else
-      = link_to 'ログインしてください', new_user_session_path, class: 'item-buy-btn'
+    -# - if user_signed_in?
+    -#   = form_for [@item, @comment] do |f|
+    -#     = f.text_area :text, disabled: true
+    -#     %br
+    -#     = f.submit "コメントする", class: "comment-btn"
+    -# - else
+    -#   = link_to 'ログインしてください', new_user_session_path, class: 'item-buy-btn'
 -# 前のページ、次のページのリンク
-.links
-  %ul
-    %li
+.links-box
+  .links-box__content
+    .links-box__content__right
       - if @item.next.present?
         = link_to item_path(@item.next) do
-          <
           = @item.next.name
-    %li
+          >
+    .links-box__content__left
       -if @item.previous.present?
         = link_to item_path(@item.previous) do
+          <
           = @item.previous.name
-          >

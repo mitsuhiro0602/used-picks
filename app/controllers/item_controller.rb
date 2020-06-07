@@ -91,11 +91,14 @@ class ItemController < ApplicationController
     end
 
     def show
+      # binding.pry
       if user_signed_in?
         @item = Item.find(params[:id])
+        # @images = Image.find(@item.)
         @user = User.find(@item.user_id)
-        @images = Item.includes(:image)
+        # @item = Item.includes(:image)
         @box = Item.order("RAND()").limit(6)
+        @itemstate = ItemState.find(@item.item_state_id)
         @smallcategory = Category.find(@item.category_id)
         @category = @smallcategory.parent # unless Category.find(@item.category_id)
         @bigcategory = @category.parent
