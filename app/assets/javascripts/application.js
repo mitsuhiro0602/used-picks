@@ -16,6 +16,8 @@
 //= require bootstrap
 //= require moment
 //= require moment/ja.js
+//= rewuire fullcalendar
+//= require fullcalendar/locale-all
 //= require bootstrap-datetimepicker
 //= require turbolinks
 //= require popper

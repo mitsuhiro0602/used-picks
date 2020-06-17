@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'events/index'
+
+  get 'events/show'
+
+  get 'events/new'
+
+  get 'events/edit'
+
   devise_for :users
   root "item#index"
 
@@ -18,5 +26,12 @@ Rails.application.routes.draw do
 
   #投稿ページの表示
   resources :posts do
+  end
+
+  #fullcalendarのapi記述
+  namespace :api, { format: 'json'} do
+    namespace :v1 do
+      resources :events
+    end
   end
 end
