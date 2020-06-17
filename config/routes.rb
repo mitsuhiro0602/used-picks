@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'mypage/index'
+
   get 'events/index'
 
   get 'events/show'

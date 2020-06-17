@@ -16,6 +16,7 @@
 //= require bootstrap
 //= require moment
 //= require moment/ja.js
+//= require Chart.min
 //= require fullcalendar
 //= require fullcalendar/locale-all
 //= require bootstrap-datetimepicker
