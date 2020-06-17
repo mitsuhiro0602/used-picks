@@ -3,5 +3,4 @@ $(function(){
   var TitleHtml = '';
   TitleHtml = `テストです`;
   $('#templatetitle').append(TitleHtml);
-
 })
