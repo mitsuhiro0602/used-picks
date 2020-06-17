@@ -1,6 +1,7 @@
 class Item < ApplicationRecord
   # アソシエーション
   has_many :images, dependent: :destroy
+  has_many :posts, dependent: :destroy
   # has_many :tags, through: :item_tags
   # has_many :item_tags, dependent: :destroy
   belongs_to :user
@@ -18,7 +19,6 @@ class Item < ApplicationRecord
   validates :name,                presence: true
   validates :description,         presence: true
   validates :category_id,         presence: true
-  validates :price,               presence: true
 
   def previous
     Item.where("id < ?", self.id).order("id DESC").first

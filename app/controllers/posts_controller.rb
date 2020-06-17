@@ -31,7 +31,8 @@ class PostsController < ApplicationController
       flash[:notice] = "投稿を編集しました"
       redirect_to root_path
     else
-      redirect_to edit_post_path, alert: "必要項目を入力してください"
+      flash[:alert] = "必要項目を入力してください"
+      redirect_to edit_post_path
     end
   end
 
@@ -40,7 +41,8 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(
       :title,
-      :content
+      :content,
+      :item_id
     )
     .merge(user_id: current_user.id)
   end

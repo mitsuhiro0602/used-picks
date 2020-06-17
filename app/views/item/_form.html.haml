@@ -52,6 +52,13 @@
                 必須
             .item-main__content-category
               = f.collection_select :category_id, @category_parent_array, :id, :name, {prompt: "---"}, class: 'item-main__content-select-default', id: 'parent_category'
+            -# 素材を選択
+          .item-main__content-form-group
+            = f.label  :material do
+              素材
+            %span.form-elective
+              任意
+            = f.text_field :material, class: 'item-main__content-textfield', placeholder: "素材を入力してください"
           -# ブランド名選択
           .item-main__content-form-group
           = f.fields_for :brand do |b|
