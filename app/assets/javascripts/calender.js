@@ -9,7 +9,7 @@ $(document).ready(function(){
     var hour = (d.getHours() < 10) ? '0' + d.getHours() :d.getHours();
     var min = (d.getMinutes() < 10) ? '0' + d.getMinutes() :d.getMinutes();
     var moment_start = year+"-"+month+"-"+day+" "+hour+":"+min;
-    var start_time = moment(moment_start).add(-9, 'hours').formnat("YYYY-MM-DD HH:mm");
+    var start_time = moment(moment_start).add(-9, 'hours').format("YYYY-MM-DD HH:mm");
     end_time = end.unix()
     var d = new Date(end_time * 1000);
     var year = d.getYear() + 1900;
