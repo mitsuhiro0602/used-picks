@@ -1,5 +1,5 @@
 #サーバ上でのアプリケーションコードが設置されているディレクトリを変数に入れておく
-app_path = File.expand_path('../../', FILE)
+app_path = File.expand_path('../../..', FILE)
 
 #アプリケーションサーバの性能を決定する
 worker_processes 1
