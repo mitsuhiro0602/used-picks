@@ -27,14 +27,14 @@ $(document).ready(function(){
         allday: false
       }
     }
-    $.ajax({
-      type: "POST",
-      url: "/api/v1/events",
-      data: data,
-      success: function(){
-        calendar.fullCalendar('refetchEvents');
-      }
-    });
+    // $.ajax({
+    //   type: "POST",
+    //   url: "/api/v1/events",
+    //   data: data,
+    //   success: function(){
+    //     calendar.fullCalendar('refetchEvents');
+    //   }
+    // });
     calendar.fullCalendar('unselect');
   };
 
@@ -50,7 +50,7 @@ $(document).ready(function(){
     monthNamesShrot: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
     dayNames: ['日曜日','月曜日','火曜日','水曜日','木曜日','金曜日','土曜日'],
     dayNamesShort: ['日','月','火','水','木','金','土'],
-    events: "/api/v1/events",
+    // events: "/api/v1/events",
     edittable: true,          //編集可
     selectable: true,        //選択可
     selectHelper: true, 　　 //選択時にプレースホルダーを描画
@@ -90,7 +90,7 @@ $(document).ready(function(){
     },
     eventResize: function(event) {　//イベントをサイズ変更した際に実行
       var id = event.id
-      var update_url = "api/v1/events/"+id
+      // var update_url = "api/v1/events/"+id
       var year = event_start_time.getYear() + 1900;
       var month = event_start_time.getMonth() + 1;
       var day = event_start_time.getDate();
@@ -126,7 +126,7 @@ $(document).ready(function(){
     },
     eventDrop: function(event) { //イベントをドラッグ&ドロップした際に実行
       var id = event.id
-      var update_url = "/api/v1/events/"+id
+      // var update_url = "/api/v1/events/"+id
       var year = event_start_time.getYear() + 1900;
       var month = event_start_time.getMonth() + 1;
       var day = event_start_time.getDate();

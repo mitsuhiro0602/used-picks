@@ -31,9 +31,9 @@ Rails.application.routes.draw do
   end
 
   #fullcalendarのapi記述
-  namespace :api, { format: 'json'} do
-    namespace :v1 do
-      resources :events
-    end
+  # namespace :api, { format: 'json'} do
+  #   namespace :v1 do
+  #     resources :events
+  #   end
   end
 end
