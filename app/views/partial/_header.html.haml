@@ -2,12 +2,15 @@
   %nav.nav
     %ul.header_menu
       %li.nav-link
-        ◯◯さん
+        = @user
+        さん
         %li.header_menu__title
           = link_to "UsedPicks", root_path, class: "nav-link"
         %li
           %ul.header_menu__inner
             %li
-              = link_to "出品登録する", "#", class: "nav-link item-new"
+              = link_to "説明文を作成する", new_post_path, class: "nav-link post-new"
+            %li
+              = link_to "出品登録する", new_item_path, class: "nav-link item-new"
             %li
               = link_to "ログアウト", destroy_user_session_path, class: "nav-link", method: :delete

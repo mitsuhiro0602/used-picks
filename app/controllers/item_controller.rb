@@ -1,12 +1,13 @@
 class ItemController < ApplicationController
   before_action :set_item, only:[:destroy, :show, :edit, :update]
 
-  before_action :set_category, only: [:new, :create, :edit, :update]
+  before_action :set_category
   before_action :confirmation, only: [:new, :edit]
 
     def index
       @items = Item.all.order('created_at DESC')
       @images = Image.all
+      @user = current_user.nickname
     end
 
     def new
@@ -14,7 +15,7 @@ class ItemController < ApplicationController
       @item.images.new
       @item.build_brand
       @item.build_measure
-      @category_parent_array = Category.where(ancestry: nil)
+      # @category_parent_array = Category.where(ancestry: nil)
     end
 
     def create
@@ -23,12 +24,10 @@ class ItemController < ApplicationController
       @item.build_measure(item_params[:measure_attributes])
       # tag_list = params[:item][:hash].split(",")
       if @item.save
-        binding.pry
         # @item.save_items(tag_list)
         flash[:notice] = "出品しました"
         redirect_to root_path
       else
-        binding.pry
         flash[:alert] = "必須項目を入力してください"
         redirect_to new_item_path
       end
@@ -91,7 +90,6 @@ class ItemController < ApplicationController
     end
 
     def show
-      # binding.pry
       if user_signed_in?
         @item = Item.find(params[:id])
         # @images = Image.find(@item.)
@@ -99,9 +97,10 @@ class ItemController < ApplicationController
         # @item = Item.includes(:image)
         @box = Item.order("RAND()").limit(6)
         @itemstate = ItemState.find(@item.item_state_id)
-        @smallcategory = Category.find(@item.category_id)
-        @category = @smallcategory.parent # unless Category.find(@item.category_id)
-        @bigcategory = @category.parent
+        @smallcategory = Category.find(@item[:category_id])
+        @category = @smallcategory.parent #unless Category.find(@item.category_id)
+        # binding.pry
+        # @bigcategory = @category.parent
       else
         render index
       end
@@ -164,6 +163,6 @@ class ItemController < ApplicationController
     end
 
     def set_category
-      @category_parent_array = Category.where(ancestry: nil)
+      @category_parents = Category.where(ancestry: nil)
     end
 end

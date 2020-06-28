@@ -29,16 +29,41 @@
           %tr
             %th カテゴリー
             %td
-              = link_to '/' do
-                = @bigcategory.name
-                %br
-              = link_to '/' do
-                %i.fas.fa-chevron-right
-                = @category.name
-                %br
-              = link_to '/' do
-                %i.fas.fa-chevron-right
-                = @smallcategory.name
+              //親要素だけの場合
+              - @category_parents.each do |parent|
+                - if @item.category_id == parent.id
+                  = link_to '#' do
+                    %i.fas.fa-chevron-right
+                    = parent.name
+
+                    -# = @bigcategory.name
+                    %br
+                //子要素までの場合
+                - parent.children.each do |child|
+                  - if @item.category_id == child.id
+                    = link_to '#' do
+                      %i.fas.fa-chevron-right
+                      = parent.name
+                      %br
+                    = link_to '#' do
+                      %i.fas.fa-chevron-right
+                      = child.name
+                      %br
+                  -# 孫要素のまでの場合
+                  - child.children.each do |grandchildren|
+                    - if @item.category_id == grandchildren.id
+                      = link_to '#' do
+                        %i.fas.fa-chevron-right
+                        = parent.name
+                      %br
+                      = link_to '#' do
+                        %i.fas.fa-chevron-right
+                        = child.name
+                      %br
+                      = link_to '#' do
+                        %i.fas.fa-chevron-right
+                        = grandchild.name
+                      %br
           %tr
             %th 素材
             %td

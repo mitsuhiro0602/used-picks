@@ -48,6 +48,16 @@ body {
             font-size: 20px;
           }
         }
+        .post-new {
+          &:after {
+            font-weight: bold;
+            font-family: "Font Awesome 5 Free";
+            content: "\f304";
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 20px;
+          }
+        }
       }
     }
   }

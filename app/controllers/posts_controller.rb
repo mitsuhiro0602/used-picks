@@ -13,7 +13,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     if @post.save
       flash[:notice] = "作成しました"
-      binding.pry
+      # binding.pry
 
       redirect_to root_path
     else
