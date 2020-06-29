@@ -8,12 +8,10 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     = include_gon
   %body
-    .notifications
-      - flash.each do |key, value|
-        = content_tag(:div, value, class: key)
-    = render 'partial/header' if current_user
-    -# - if flash[:notice]
-    -#   %div.alert.alert-info= flash[:notice]
-    -# - if flash[:alert]
-    -#   %div.alert.alert-danger= flash[:alert]
-    = yield
+    = render 'layouts/notifications'
+    = render 'partial/header'
+    .row
+      .col-2
+        = render 'layouts/sidebar'
+      .col-8
+        = yield

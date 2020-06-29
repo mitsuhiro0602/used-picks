@@ -1,0 +1,17 @@
+.notifications {
+  font-size: 16px;
+  color: white;
+  text-align: center;  
+  
+  .notice {
+    background-color: lime;
+    color: white;
+    text-align: center;
+  }
+
+  .alert {
+    background-color: orange;
+    color: white;
+    text-align: center;
+  }
+}
