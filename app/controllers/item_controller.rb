@@ -7,7 +7,6 @@ class ItemController < ApplicationController
     def index
       @items = Item.all.order('created_at DESC')
       @images = Image.all
-      @user = current_user.nickname
     end
 
     def new
