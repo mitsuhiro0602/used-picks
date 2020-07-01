@@ -65,6 +65,7 @@ class ItemController < ApplicationController
       @condition_array = Condition.all
       @item.build_brand
       @tag_list = @item.tags.pluck(:hash).join(",")
+      @user = current_user.nickname
     end
 
     def update
@@ -94,14 +95,14 @@ class ItemController < ApplicationController
       if user_signed_in?
         @item = Item.find(params[:id])
         # @images = Image.find(@item.)
-        @user = User.find(@item.user_id)
+        @username = User.find(@item.user_id)
+        @user = current_user.nickname
         # @item = Item.includes(:image)
         @box = Item.order("RAND()").limit(6)
         @itemstate = ItemState.find(@item.item_state_id)
         @smallcategory = Category.find(@item[:category_id])
         @category = @smallcategory.parent #unless Category.find(@item.category_id)
-        # binding.pry
-        # @bigcategory = @category.parent
+        @like = Like.new
       else
         render index
       end

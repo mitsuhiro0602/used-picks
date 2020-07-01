@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get 'mypage/index'
   get 'events/index'
   get 'events/show'
@@ -8,7 +9,10 @@ Rails.application.routes.draw do
   devise_for :users
   root "item#index"
 
-  # root 'items#index'
+  # ユーザーの詳細ページを作成
+  resources :users, only: [:index, :show]
+
+  #  アイテムページの作成
   resources :item do
   # Ajaxで動くアクションのルートを作成
     collection do
@@ -20,6 +24,8 @@ Rails.application.routes.draw do
       get ':id/get_category_children', to: 'items#get_category_children', defaults: { format: 'json' }
       get ':id/get_category_grandchildren', to: 'items#get_category_grandchildren', defaults: { format: 'json' }
     end
+    # いいねの作成
+    resources :likes, only: [:create, :destroy]
   end
 
   #投稿ページの表示

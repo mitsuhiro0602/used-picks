@@ -10,6 +10,7 @@ class Item < ApplicationRecord
   belongs_to :day, optional: true
   belongs_to :size, optional: true
   belongs_to :measure, optional: true
+  has_many :likes, -> { order(created_at: :desc) }, dependent: :destroy
   accepts_nested_attributes_for :images, allow_destroy: true
   accepts_nested_attributes_for :brand
   accepts_nested_attributes_for :measure, allow_destroy: true
@@ -26,6 +27,10 @@ class Item < ApplicationRecord
 
   def next
     Item.where("id > ?", self.id).order("id ASC").first
+  end
+
+  def liked_by(users)
+    Like.find_by(user_id: user.id, item_id: id)
   end
 
   #タグを保存するためのメソッド
