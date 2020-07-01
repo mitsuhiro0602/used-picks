@@ -1,0 +1,4 @@
+%h1
+  ユーザー一覧
+- @users.each do |user|
+  = link_to(@user.nickname, user_path(id: user.id))

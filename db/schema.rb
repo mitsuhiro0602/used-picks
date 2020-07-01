@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200617134956) do
+ActiveRecord::Schema.define(version: 20200630215435) do
 
   create_table "brands", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "brand_name"
@@ -111,6 +111,15 @@ ActiveRecord::Schema.define(version: 20200617134956) do
     t.index ["user_id"], name: "index_items_on_user_id", using: :btree
   end
 
+  create_table "likes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "item_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_likes_on_item_id", using: :btree
+    t.index ["user_id"], name: "index_likes_on_user_id", using: :btree
+  end
+
   create_table "measures", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "shwidth"
     t.integer  "sllength"
@@ -166,4 +175,6 @@ ActiveRecord::Schema.define(version: 20200617134956) do
   add_foreign_key "category_sizes", "categories"
   add_foreign_key "category_sizes", "sizes"
   add_foreign_key "images", "items"
+  add_foreign_key "likes", "items"
+  add_foreign_key "likes", "users"
 end

@@ -192,7 +192,67 @@
       padding-left: 32px;
     }
   }
+  // いいねボタンの実装
+  .button-content {
+    margin: 16px 0 0px;
+    font-weight: 400;
+    button {
+      display: inline-block;
+    }
+    &__left {
+        float: left;
+        display: flex;
+    }
+    .like_button {
+      // display:none;
+    }
+    #text {
+      color: #333;
+      background: #e9e5e5;
+      padding: 8px 4px;
+      border-radius: 40px;
+      text-decoration: none;
+    }
+    .button-like {
+      border-radius: 40px;
+      background: rgb(233, 229, 229);
+      padding: 8px 16px;
+      display: flex;
+      &__text{
+        color: #333;
+        background: #e9e5e5;
+        padding: 8px 4px;
+        border-radius: 40px;
+        text-decoration: none;
+      }
+    }
+    .like_list {
+      list-style: none;
+    }
+    .love {
+      background-image: image-url("parts2");
+      background-repeat: no-repeat;
+      height: 36px;
+      width: 36px;
+      background-size: 36px !important;
+    }
+    .loved {
+      background-image: image-url("parts7");
+      background-repeat: no-repeat;
+      height: 36px;
+      width: 36px;
+      background-size: 36px !important;
+    }
+    .hide-text {
+      display: block;
+      overflow: hidden;
+      text-indent: 110%;
+      white-space: nowrap;
+    }
+  }
 }
+
+
 // コメント
 .message_content {
   width: 700px;

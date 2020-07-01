@@ -1,0 +1,4 @@
+$('#like-icon-item-<%= @item.id.to_s %>').
+  html('<%= link_to "いいね", item_like_path(@item.id, @like), method: :DELETE, remote: true, class: "loved hide-text" %>');
+$('#like-text-item-<%= @item.id.to_s %>').
+  html('<%= j render "item/like_text", { likes: @item.likes } %>');

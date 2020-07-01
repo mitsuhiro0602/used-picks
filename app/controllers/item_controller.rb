@@ -100,8 +100,7 @@ class ItemController < ApplicationController
         @itemstate = ItemState.find(@item.item_state_id)
         @smallcategory = Category.find(@item[:category_id])
         @category = @smallcategory.parent #unless Category.find(@item.category_id)
-        # binding.pry
-        # @bigcategory = @category.parent
+        @like = Like.new
       else
         render index
       end
