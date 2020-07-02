@@ -19,6 +19,15 @@ class ItemController < ApplicationController
       # @category_parent_array = Category.where(ancestry: nil)
     end
 
+    def searh
+      # @items = Item.search(item_params[:name])
+      @items = Item.where(['name LIKE ?', "%#{params[:keyword]}%"] )
+      respond_to do |format|
+        format.html
+        format.json
+      end
+    end
+
     def create
       @item = Item.new(item_params)
       @item.build_brand(item_params[:brand_attributes])
