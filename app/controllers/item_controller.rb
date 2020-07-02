@@ -103,6 +103,8 @@ class ItemController < ApplicationController
         @smallcategory = Category.find(@item[:category_id])
         @category = @smallcategory.parent #unless Category.find(@item.category_id)
         @like = Like.new
+        @comment = Comment.new
+        @comments = @item.comments.order(created_at: :desc)
       else
         render index
       end

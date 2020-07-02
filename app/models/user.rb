@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :items
   has_many :items, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :comments
   has_many :like_items, through: :likes, source: :item
   validates :nickname, presence: true, length: { maximum: 20 }
 
