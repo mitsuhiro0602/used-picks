@@ -108,12 +108,12 @@
   .comment_content__box
     -# コメント表示
     %ul
-      %li.comment__box__create
-        %h3
+      %li.comment_content__box__list
+        %h3.subtitle
           コメント一覧
-      %li#comment__box__area
-    -#     = render partial: 'comments/index', locals: { comments: @comments }
-    -# %hr/
+      .comment__box__area
+        = render partial: 'comments/index', locals: { comments: @comments }
+    %hr/
     - if user_signed_in?
       .comment-crete
         %h3.text-left

@@ -1,2 +1,2 @@
-$("#comments_area").html("<%= j(render 'index', { comments: @comment.item.comments }) %>")
+$("#comment__box__area").html("<%= j(redirect_to item_path(id: @item.id), { comments: @comment.item.comments }) %>")
 $("textarea").val('')
