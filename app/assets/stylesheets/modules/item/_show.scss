@@ -259,6 +259,16 @@
   margin: 0 auto;
   padding: 24px 40px;
   background: white;
+  // コメント実装
+  .delete-comment {
+    background-image: image-url("parts8");
+    background-repeat: no-repeat;
+    width: 11px;
+    height: 11px;
+    // float: right;
+    margin: 5px 0 0 10px;
+    background-size: 11px !important;
+  }
   &__box {
     background: white;
     width: 100%;

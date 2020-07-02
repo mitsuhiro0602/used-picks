@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     # いいねの作成
     resources :likes, only: [:create, :destroy]
     # コメントの作成
-    resources :comment, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy]
   end
 
   #投稿ページの表示

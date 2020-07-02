@@ -103,43 +103,49 @@
               = link_to "いいね", item_likes_path(@item), method: :POST, remote: true, class: "love hide-text"
           %div{:id => "like-text-item-#{@item.id.to_s}"}
             = render "like_text", { likes: @item.likes }
-
-          -# %h3.button-like__text
-          -#   いいね！
-          -# = @item.likes.count
-          -# - if current_user.already_liked?(@item)
-          -#   = button_to 'いいねを取り消す', item_like_path(@item), class: "like_button", method: :delete
-          -# - else
-          -#   = button_to 'いいね', item_likes_path(@item), class: "like_button"
-          -# %h2.button-like__text
-          -#   いいねしたユーザー
-          -# - @item.liked_users.each do |user|
-          -#   %li.like_list.button-like__text
-          -#     = user.nickname
 %section
-.message_content
-  .message_content__box
+.comment_content
+  .comment_content__box
     -# コメント表示
-    - if @comments
-      - @comments.each do |comment|
-        .message_content__box__list
-          .message_content__box__list__icon
-            = icon('fa', 'user')
-          .message_content__box__list__content
-            .message_content__box__list__content__name
-              = link_to comment.user.nickname "/users/#{comment.user_id}"
-            .message_content__box__list__content__message
-              = comment.text
-            .message_content__box__list__content__date
-              = comment.updated_at
+    %ul
+      %li.comment__box__create
+        %h3
+          コメント一覧
+      %li#comment__box__area
+    -#     = render partial: 'comments/index', locals: { comments: @comments }
+    -# %hr/
+    - if user_signed_in?
+      .comment-crete
+        %h3.text-left
+          コメントを投稿する
+        = render partial: 'comments/form', locals: { comment: @comment, item: @item }
+
+
+
+    -# - if @comments
+    -#   - @comments.each do |comment|
+    -#     .message_content__box__list
+    -#       .message_content__box__list__icon
+    -#         = icon('fa', 'user')
+    -#       .message_content__box__list__content
+    -#         .message_content__box__list__content__name
+    -#           = link_to comment.user.nickname "/users/#{comment.user_id}"
+    -#         .message_content__box__list__content__message
+    -#           = comment.text
+    -#         .message_content__box__list__content__date
+    -#           = comment.updated_at
       -# コメントを投稿する
     -# - if user_signed_in?
-    -#   = form_for [@item, @comment] do |f|
-    -#     = f.text_area :text, disabled: true
-    -#     %br
+    -#   = form_for(@item, Comment.new, class: 'w-100') do |f|
+    -#     = f.hidden_field :user_id, value: current_user.id
+    -#     = f.hidden_field :item_id, value: @item.id
+    -#     -# = f.text_field :comment, class: "form-control comment-input border-0", placeholder: "コメント ...", autocomplete: :off
     -#     = f.submit "コメントする", class: "comment-btn"
     -# - else
     -#   = link_to 'ログインしてください', new_user_session_path, class: 'item-buy-btn'
+    -# %div{:id => "comment-post-#{@post.id.to_s}"}
+    -#   = render 'comment_list', post: @post
+
 -# 前のページ、次のページのリンク
 .links-box
   .links-box__content

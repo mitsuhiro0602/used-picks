@@ -1,0 +1,9 @@
+- post.comments.each do |comment|
+  .mb-2
+    - if comment.user == current.user
+      = link_to "", item_comment_index_path(item.id, comment), method: :delete, remote: true, class: "delete-comment"
+    %span
+      %strong
+        = link_to comment.user.nickname, user_path(comment.user), class "no-text-decoration-color"
+    %span
+      = comment.comment
