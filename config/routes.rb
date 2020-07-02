@@ -28,6 +28,11 @@ Rails.application.routes.draw do
     resources :likes, only: [:create, :destroy]
     # コメントの作成
     resources :comments, only: [:create, :destroy]
+
+    # インクリメンタルサーチを実装する
+    collection do
+      get 'search'
+    end
   end
 
   #投稿ページの表示
