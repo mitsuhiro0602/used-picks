@@ -1,6 +1,6 @@
 $(function () {
-  const inputForm = $('#searching-form');
-  const url = window.location.href;
+  const inputForm = $("#searching-form");
+  const url = '/item/search';
   const search_list = $('.itemlist');
 
   function appendItem(item) {
@@ -19,8 +19,8 @@ $(function () {
     search_list.append(html);
   }
   // フォームに入力すると発火する
-  inputForm.on('keyup', function(){
-    var target = $(this).val();
+  inputForm.on("keyup", function(){
+    var target = inputForm.val();
     search(target);
     console.log(target);
   });
@@ -34,12 +34,12 @@ $(function () {
       dataType: 'json'
     })
     .done(function(items){
+      console.log(items);
       search_list.empty(); //再度検索した際の前のデータを消す処理
       if (items.length !== 0){
         items.forEach(function(item) { //dataは配列型に格納されているEach文を返す
           appendItem(item);
         });
-        console.log(item.name);
       } else {
         appendErrMsgToHTML('該当する商品はありません')
       }

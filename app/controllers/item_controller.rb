@@ -20,8 +20,7 @@ class ItemController < ApplicationController
     end
 
     def searh
-      # @items = Item.search(item_params[:name])
-      @items = Item.where(['name LIKE ?', "%#{params[:keyword]}%"] )
+      @items = Item.where(['name LIKE (?)', "%#{params[:keyword]}%"] ).limit(20)
       respond_to do |format|
         format.html
         format.json

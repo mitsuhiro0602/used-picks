@@ -1,19 +1,6 @@
 .search-container
-  -# = form_tag ('search_item_index_path', method: :get, placeholder: '') do
-  = form_tag '/item/search', method: :get, class: "search-form" do
-    = text_field_tag :name, :'', id: 'searching-form', placeholder: '検索', autocomplete: 'off'
-  .itemlists
-    .itemlist
-  -# .itemslists
-  -#   - @items.each do |item|
-  -#     .itemlist
-  -#       = link_to item_path(id: item.id), class: "itemlist__link" do
-  -#         - ft_image = item.images.first
-  -#         = image_tag ft_image.image_url.url, class: "itemlist__image"
-  -#         %h3.name
-  -#           = item.name
-  -#       .itemlist__details
-  -#         %ul
-  -#           %li.itemlist__details-price
-  -#             = item.initial_price
-  -#             = "円"
+  .search-container__box
+    = form_tag '/item/search', method: :get, class: "search-form" do
+      = text_field_tag :name, :'', id: 'searching-form', placeholder: '検索', autocomplete: 'off'
+    .itemlists
+      .itemlist
