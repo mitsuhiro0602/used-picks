@@ -1,0 +1,19 @@
+.h2
+  合計売り上げの確認
+= form_tag({controller: :chart, action: :show_total}, {method: :post}) do
+  = submit_tag "確認する"
+.h2
+  月の売り上げの確認
+= form_tag({controller: :chart, action: :show_month}, {method: :post}) do
+  %input{:name => "exhibit_day", :type => "month"}/
+  %input{:type => "submit"}/
+
+-# .h2
+-#   年間売り上げの確認
+-# = form_tag({controller: :chart, action: :show_year}, {method: :post}) do
+-#   %input{:name => "year", :type => "hidden"}/
+-#   %select{:name => "year"}
+-#   - 2010.upto(2050) do |n|
+-#     %option{:value => "<haml_loud"}
+-#       n.to_s &gt;#{n}
+  -# %input{:type => "submit"}/
