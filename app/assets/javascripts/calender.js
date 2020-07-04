@@ -1,4 +1,9 @@
-$(document).ready(function() {
+$(document).ready(function doReloadWithCach() {
+  $('#fullcalendar').on('click', function(){
+    var element = document.getElementById("fullcalendar");
+    element.classList.add("channelactive");
+		location.reload();
+　});
   var select = function(start, end) {
     var title = window.prompt("title");
     start_time = start.unix()
@@ -28,12 +33,12 @@ $(document).ready(function() {
       }
     }
     $.ajax({
-     type: "POST",
-     url: "/api/v1/events",
-     data: data,
-     success: function() {
-       calendar.fullCalendar('refetchEvents');
-     }
+      type: "POST",
+      url: "/api/v1/events",
+      data: data,
+      success: function() {
+        calendar.fullCalendar('refetchEvents');
+      }
     });
     calendar.fullCalendar('unselect');
   };
