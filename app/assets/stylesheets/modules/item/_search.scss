@@ -1,8 +1,14 @@
 .search-container {
-  margin: 0 auto;
-  .search-form {
-    margin-left: 480px;
-    margin-top: 48px;
+  background-color: #f8f8f8;
+  &__box {
+    text-align: center;
+    width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    .search-form {
+      margin: 0 auto;
+      margin-top: 48px;
+    }
   }
 
 }
@@ -11,5 +17,6 @@
   margin: 0 auto 1rem;
   width: 300px;
   line-height: 48px;
-  text-align: center;
+  padding-left: 8px;
+  // text-align: left;
 }
