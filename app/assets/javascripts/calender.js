@@ -1,4 +1,7 @@
-$(document).ready(function() {
+$(document).on('turbolinks:load',function() {
+//   $('#fullcalendar').on('click', function(){
+// 		location.reload();
+// 　});
   var select = function(start, end) {
     var title = window.prompt("title");
     start_time = start.unix()
@@ -28,12 +31,12 @@ $(document).ready(function() {
       }
     }
     $.ajax({
-     type: "POST",
-     url: "/api/v1/events",
-     data: data,
-     success: function() {
-       calendar.fullCalendar('refetchEvents');
-     }
+      type: "POST",
+      url: "/api/v1/events",
+      data: data,
+      success: function() {
+        calendar.fullCalendar('refetchEvents');
+      }
     });
     calendar.fullCalendar('unselect');
   };
