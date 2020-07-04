@@ -1,9 +1,7 @@
-$(document).ready(function doReloadWithCach() {
-  $('#fullcalendar').on('click', function(){
-    var element = document.getElementById("fullcalendar");
-    element.classList.add("channelactive");
-		location.reload();
-　});
+$(document).on('turbolinks:load',function() {
+//   $('#fullcalendar').on('click', function(){
+// 		location.reload();
+// 　});
   var select = function(start, end) {
     var title = window.prompt("title");
     start_time = start.unix()
