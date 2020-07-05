@@ -7,10 +7,9 @@ Rails.application.routes.draw do
   end
 
   get 'mypage/index'
-  get 'events/index'
-  get 'events/show'
-  get 'events/new'
-  get 'events/edit'
+
+  # カレンダーの作成
+  resources :events, only: [:index]
 
   devise_for :users
   root "item#index"
@@ -45,10 +44,15 @@ Rails.application.routes.draw do
   resources :posts do
   end
 
-  #fullcalendarのapi記述
-  # namespace :api, { format: 'json'} do
-  #   namespace :v1 do
-  #     resources :events
-  #   end
+  # グラフの作成
+  # resources :chart, only: [:index] do
+  #   collection do
+      get 'chart/index', to: 'chart#index'
+      get 'chart/show_total', to: 'chart#show_total'
+      get 'chart/show_day(/:name)', to: 'chart#show_day'
+      get 'chart/show_week(/:name)', to: 'chart#show_week'
+      get 'chart/show_month(/:name)', to: 'chart#show_month'
+      get 'chart/show_year(/:name)', to: 'chart#show_year'
+    # end
   # end
 end

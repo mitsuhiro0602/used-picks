@@ -1,0 +1,33 @@
+.h2
+  合計売り上げの確認
+= form_tag({controller: :chart, action: :show_total}, {method: :get}) do
+  = submit_tag "確認する"
+
+.h2
+  週の売り上げの確認
+= form_tag({controller: :chart, action: :show_day}, {method: :get}) do
+  = date_field_tag 'exhibit_day'
+  %input{:type => "submit"}/
+
+.h2
+  週の売り上げの確認
+= form_tag({controller: :chart, action: :show_week}, {method: :get}) do
+  %input{:name => "exhibit_day", :type => "week"}/
+  %input{:type => "submit"}/
+
+
+.h2
+  月の売り上げの確認
+= form_tag({controller: :chart, action: :show_month}, {method: :get}) do
+  %input{:name => "exhibit_day", :type => "month"}/
+  %input{:type => "submit"}/
+
+.h2
+  年間売り上げの確認
+= form_tag({controller: :chart, action: :show_year}, {method: :post}) do
+  %input{:name => "exhibit_day", :type => "hidden"}/
+  %select{:name => "exhibit_day"}
+    - (2015...2050).each do |date|
+      %option{:value => date.to_s }= date
+  %input{:type => "submit"}/
+

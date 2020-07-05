@@ -5,8 +5,10 @@
     %title UsedPicks
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    -# = Gon::Base.render_data
     = include_gon
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    
   %body
     = render 'layouts/notifications'
     = render 'partial/header'

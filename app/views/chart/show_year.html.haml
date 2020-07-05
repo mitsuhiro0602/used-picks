@@ -1,0 +1,55 @@
+-# 月次、日次、週次、年間売り上げに必要な項目
+-# 日次：それぞれの売れた商品、それぞれの売れた金額
+-# 週次：それぞれの商品、それぞれの売れた金額、売れた日にち
+-# 月次：それぞれの商品、それぞれの売れた金額、売れた日にち
+-# 年次：それぞれの商品、それぞれの売れた金額、売れた日にち
+
+-# 日次：それぞれの出品した商品、それぞれの出品した金額、それぞれの出品した日にち
+-# それぞれの出品した商品、それぞれの出品した金額、それぞれの出品した日にち
+-# それぞれの出品した商品、それぞれの出品した金額、それぞれの出品した日にち
+-# それぞれの出品した商品、それぞれの出品した金額、それぞれの出品した日にち
+-# を表示する
+
+-# その上にグラフを表示する
+.chart_details
+  %h2
+    = @year_input_int
+    年の売り上げの確認
+  .chart_details__main-content
+    %h3
+      グラフで表示
+    .chart_details__main-content__box
+      %h3
+        売り上げの確認
+        %table.chart_details__main-content__box__table-date
+          %thead
+            %tr
+              %th 売れた商品
+              %th 売れた金額
+              %th 売れた日にち
+          %tbody
+          - @price_years.each do |price_year|
+            %tr
+              %td= price_year.name
+              %td= price_year.initial_price
+              %td= price_year.exhibit_day
+          %tr
+            %th 合計金額
+            %td= @price_years_total
+      %h3
+        出品数の確認
+        %table.chart_details__main-content__box__table-date
+          %thead
+            %tr
+              %th 出品した商品
+              %th 出品した金額
+              %th 出品した日にち
+          %tbody
+          - @item_years.each do |item_year|
+            %tr
+              %td= item_year.name
+              %td= item_year.initial_price
+              %td= item_year.exhibit_day
+          %tr
+            %th 合計出品数
+            %td= @item_years_total

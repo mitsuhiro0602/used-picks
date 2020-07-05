@@ -157,14 +157,14 @@
                 出品日
               %span.form-require
                 必須
-              = f.date_select :exhibit_day, class: "item-main__content-textsize"
+              = f.date_field :exhibit_day, class: "item-main__content-textsize"
           .item-main__content-right-box
             .item-main__content-head
               = f.label :initial_price do
                 初期価格
               %span.form-require
                 必須
-              = f.text_field :initial_price, calss: "item-main__content-textsize"
+              = f.number_field :initial_price, min:300, max: 1000000, calss: "item-main__content-textsize"
         -# ボタン
         .btn-box
           = f.submit '登録する', class: 'btn-box__red'
