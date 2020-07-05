@@ -51,5 +51,5 @@ production:
   <<: *default
   database: used-picks_production
   username: root
-  password: mitsu0602
+  password: <%= ENV['USED-PICKS_DATABASE_PASSWORD'] %>
   socket: /var/lib/mysql/mysql.sock
