@@ -36,9 +36,7 @@ class ItemController < ApplicationController
         # @item.save_items(tag_list)
         flash[:notice] = "出品しました"
         redirect_to root_path
-        binding.pry
       else
-        binding.pry
         flash[:alert] = "必須項目を入力してください"
         redirect_to new_item_path
       end
