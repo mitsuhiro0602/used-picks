@@ -1,2 +1,38 @@
-.h2
-  テスト
+.chart_details
+  %h2
+    合計の出品数と売り上げを確認
+  .chart_details__main-content
+    .chart_details__main-content__box
+      %h3
+        合計売り上げを確認
+        %table.chart_details__main-content__box__table
+          %tbody
+            %tr.chart_details__main-content__box__table__tr
+              %th 日次売り上げ
+              %td= @day_price
+            %tr
+              %th 週間売り上げ
+              %td= @week_price
+            %tr
+              %th 月間売り上げ
+              %td= @month_price
+            %tr
+              %th 年間売り上げ
+              %td= @year_price
+
+    %h3.subtilte
+      合計出品数を確認
+      %table.chart_details__main-content__box__table
+        %tbody
+          %tr.chart_details__main-content__box__table__tr
+            %th 日次出品数
+            %td= @day_item
+          %tr
+            %th 週間出品数
+            %td= @week_item
+          %tr
+            %th 月間出品数
+            %td= @month_item
+          %tr
+            %th 年間出品数
+            %td= @year_item

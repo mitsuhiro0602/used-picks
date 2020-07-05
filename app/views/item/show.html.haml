@@ -1,9 +1,9 @@
 %section
-.item__details
-  %h2.item__details__name
+.item_details
+  %h2.item_details__name
     = @item.name
   .item_details__main-content
-    .item__details__main-content__box
+    .item_details__main-content__box
       .main_photo
         .photos
           = image_tag "#{@item.images[0].image_url}", class: "photos"

@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 20200701021446) do
   end
 
   create_table "iteminfos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "soldout_day"
+    t.date     "soldout_day"
     t.integer  "soldout_price"
     t.integer  "item_id"
     t.datetime "created_at",    null: false

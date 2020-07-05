@@ -45,12 +45,13 @@ Rails.application.routes.draw do
   end
 
   # グラフの作成
-  resources :chart do
-    collection do
-      post 'chart/show_total', to: 'chart#show_total'
+  # resources :chart, only: [:index] do
+  #   collection do
+      get 'chart/index', to: 'chart#index'
+      get 'chart/show_total', to: 'chart#show_total'
       # post 'chart/show_week', to: 'charts#show_week'
-      post 'chart/show_month(/:name)', to: 'chart#show_month'
+      get 'chart/show_month(/:name)', to: 'chart#show_month'
       # post 'chart/show_year(/:name)', to: 'charts#show_year'
-    end
-  end
+    # end
+  # end
 end
