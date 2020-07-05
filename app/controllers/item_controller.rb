@@ -5,8 +5,7 @@ class ItemController < ApplicationController
   before_action :confirmation, only: [:new, :edit]
 
     def index
-      @items = Item.all.order('created_at DESC')
-      @images = Image.all
+      @items = Item.includes(:images).order('created_at DESC')
       @user = current_user.nickname
     end
 
@@ -108,6 +107,7 @@ class ItemController < ApplicationController
         @itemstate = ItemState.find(@item.item_state_id)
         @smallcategory = Category.find(@item[:category_id])
         @category = @smallcategory.parent #unless Category.find(@item.category_id)
+        @bigcategory = @category.parent
         @like = Like.new
         @comment = Comment.new
         @comments = @item.comments.order(created_at: :desc)

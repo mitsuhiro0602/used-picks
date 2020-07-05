@@ -5,14 +5,13 @@
     .itemslists
       - @items.each do |item|
         .itemlist
-        - item.images.each do |image|
-          = image_tag image.image_url.url, class: "itemlist__image"
-          -# = link_to item_path(id: item.id), class: "itemlist__link" do
-          -#   = image_tag item.images.image_url.url, class: "itemlist__image"
+          = link_to item_path(id: item.id), class: "itemlist__link" do
+            - ft_image = item.images.first
+            = image_tag ft_image.image_url.url, class: "itemlist__image"
             %h3.name
               = item.name
-          .itemlist__details
-            %ul
-              %li.itemlist__details-price
-                = item.initial_price
-                = "円"
+            .itemlist__details
+              %ul
+                %li.itemlist__details-price
+                  = item.initial_price
+                  = "円"
