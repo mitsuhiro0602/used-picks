@@ -14,7 +14,6 @@ class Item < ApplicationRecord
   accepts_nested_attributes_for :brand
   accepts_nested_attributes_for :measure, allow_destroy: true
 
-
   # バリデーション
   validates :name,                presence: true
   validates :description,         presence: true
@@ -31,23 +30,5 @@ class Item < ApplicationRecord
   def liked_by(users)
     Like.find_by(user_id: user.id, item_id: id)
   end
-
-  #タグを保存するためのメソッド
-  # def save_items(tags)
-  #   current_tags = self.tags.pluck(:hash) unless self.tags.nil?
-  #   old_tags = current_tags - tags
-  #   new_tags = tags - current_tags
-
-    #Destroy
-    # # old_tags.each do |old_name|
-    # #   self.tags.delete Tag.find_by(hash:old_name)
-    # end
-
-    #create
-  #   new_tags.each do |new_name|
-  #     item_tag = Tag.find_or_create_by(hash:new_name)
-  #     self.tags << item_tag
-  #   end
-  # end
 
 end
