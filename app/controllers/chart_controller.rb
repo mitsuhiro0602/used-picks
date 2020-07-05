@@ -38,24 +38,46 @@ class ChartController < ApplicationController
   end
 
   def show_month
-
     #アイテムカラムを取得する (sold_out_priceに変更、sold_out_dayに変更)
-    @year_month = params[:exhibit_day]
+    year_month = []
+    # 入力した日にちを保存する
+    year_month = params[:exhibit_day]
+    
+    # 配列から月を取り出す
+    year_month_int = year_month.split "-"
+    @year_month_int = year_month_int[1].to_i
+    
+    # 文字列から連結する
+    year_month_date = year_month + "-1"
+    @year_month_date = year_month_date.to_date
     @items = Item.order(exhibit_day: :asc)
-
-    # 昨日の時間を取得する
-    to = Time.current.at_beginning_of_day
-    # １週間前の時間を取得する
-    from_week = (to - 8.day).at_end_of_day
-    # 1ヶ月間の時間を取得する
-    from_month = (to - 1.month + 9.day)
-    # 1年間の時間を取得する
-    from_year = (to - 1.year + 9.day)
-
+    # 月初の日時を取得する
+    to = @year_month_date.beginning_of_month
+    # 月末の日時を取得する
+    from_month = @year_month_date.end_of_month
     # priceの計算(sold_out_priceに変更、sold_out_dayに変更)
-    @price_months = Item.where(exhibit_day: from_month...to)
-
+    @price_months = Item.where(exhibit_day: to...from_month)
+    @price_months_total = @price_months.sum(:initial_price)
     # item_momnthの計算
-    @item_months = Item.where(exhibit_day: from_month...to)
+    @item_months = Item.where(exhibit_day: to...from_month)
+    @item_months_total = @item_months.count
+  end
+
+  def show_year
+    #アイテムカラムを取得する (sold_out_priceに変更、sold_out_dayに変更)
+    year_input = []
+    # 入力した日にちを保存する
+    year_input = params[:exhibit_day]
+    @year_input_int = year_input
+    year_input_date = year_input + "-01-01"
+    @year_input_date = year_input_date.to_date
+
+    @items = Item.order(exhibit_day: :asc) if @items.present?
+    to = @year_input_date.beginning_of_year
+    from_year = @year_input_date.end_of_year
+    @price_years = Item.where(exhibit_day: to...from_year)
+    @price_years_total = @price_years.sum(:initial_price)
+    @item_years = Item.where(exhibit_day: to...from_year)
+    @item_years_total = @item_years.count
   end
 end

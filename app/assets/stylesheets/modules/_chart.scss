@@ -14,7 +14,7 @@
       display: flex;
       justify-content: space-between;
       &__table {
-        // chartとテーブル
+        // 合計テーブルの表示
         border: 3px solid;
         width: 400px;
         height: 400px;
@@ -57,6 +57,51 @@
             padding: 10px 30px;
           }
         
+      }
+      &__table-date {
+        // 合計テーブルの表示
+        border: 3px solid;
+        width: 400px;
+        height: 400px;
+        border-collapse:separate;
+        border-spacing: 0;
+        margin: 10px;
+        th:first-child {
+          border-radius: 5px 0 0 0;
+        }
+        th:last-child {
+          border-radius: 0 5px 0 0;
+          border-right: 1px solid #3c6690;
+        }
+        th {
+          text-align: center;
+          color:white;
+          background: linear-gradient(#829ebc,#225588);
+          border-left: 1px solid #3c6690;
+          border-top: 1px solid #3c6690;
+          border-bottom: 1px solid #3c6690;
+          box-shadow: 0px 1px 1px rgba(255,255,255,0.3) inset;
+          width: 25%;
+          padding: 10px 0;
+        }
+        tr:last-child td:first-child {
+          border-radius: 0 0 0 5px;
+        }
+        tr:last-child td:last-child {
+          border-radius: 0 0 5px 0;
+        }
+        td{
+          text-align: center;
+          border-left: 1px solid #a8b7c5;
+          border-bottom: 1px solid #a8b7c5;
+          border-top:none;
+          box-shadow: 0px -3px 5px 1px #eee inset;
+          width: 25%;
+          padding: 10px 0;
+        }
+        td:last-child{
+          border-right: 1px solid #a8b7c5;
+        }
       }
       
     }

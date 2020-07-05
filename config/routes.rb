@@ -51,7 +51,7 @@ Rails.application.routes.draw do
       get 'chart/show_total', to: 'chart#show_total'
       # post 'chart/show_week', to: 'charts#show_week'
       get 'chart/show_month(/:name)', to: 'chart#show_month'
-      # post 'chart/show_year(/:name)', to: 'charts#show_year'
+      post 'chart/show_year(/:name)', to: 'chart#show_year'
     # end
   # end
 end

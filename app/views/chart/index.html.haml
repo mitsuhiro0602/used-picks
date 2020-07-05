@@ -8,12 +8,12 @@
   %input{:name => "exhibit_day", :type => "month"}/
   %input{:type => "submit"}/
 
--# .h2
--#   年間売り上げの確認
--# = form_tag({controller: :chart, action: :show_year}, {method: :post}) do
--#   %input{:name => "year", :type => "hidden"}/
--#   %select{:name => "year"}
--#   - 2010.upto(2050) do |n|
--#     %option{:value => "<haml_loud"}
--#       n.to_s &gt;#{n}
-  -# %input{:type => "submit"}/
+.h2
+  年間売り上げの確認
+= form_tag({controller: :chart, action: :show_year}, {method: :post}) do
+  %input{:name => "exhibit_day", :type => "hidden"}/
+  %select{:name => "exhibit_day"}
+    - (2015...2050).each do |date|
+      %option{:value => date.to_s }= date
+  %input{:type => "submit"}/
+
