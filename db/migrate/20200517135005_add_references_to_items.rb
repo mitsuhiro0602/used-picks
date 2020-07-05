@@ -4,9 +4,6 @@ class AddReferencesToItems < ActiveRecord::Migration[5.0]
     add_reference :items, :brand, foregin_key: true
     add_reference :items, :category, foregin_key: true
     add_reference :items, :item_state, foregin_key: true
-    add_reference :items, :size, foregin_key: true
     add_reference :items, :measure, foregin_key: true
-    add_reference :items, :tag, foregin_key: true
-    add_reference :items, :post, foregin_key: true
   end
 end
