@@ -31,15 +31,13 @@ class ItemController < ApplicationController
       @item = Item.new(item_params)
       @item.build_brand(item_params[:brand_attributes])
       @item.build_measure(item_params[:measure_attributes])
-      # tag_list = params[:item][:hash].split(",")
-      if @item.save
-        # @item.save_items(tag_list)
-        flash[:notice] = "出品しました"
-        redirect_to root_path
-      else
-        flash[:alert] = "必須項目を入力してください"
-        redirect_to new_item_path
-      end
+      @item.save
+      flash[:notice] = "出品しました"
+      redirect_to root_path
+      # else
+      #   flash[:alert] = "必須項目を入力してください"
+      #   redirect_to new_item_path
+      # end
     end
 
     #親カテゴリーが選択された後に動くアクション
