@@ -37,6 +37,7 @@ class ItemController < ApplicationController
         flash[:notice] = "出品しました"
         redirect_to root_path
       else
+        binding.pry
         flash[:alert] = "必須項目を入力してください"
         redirect_to new_item_path
       end
