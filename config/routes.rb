@@ -49,9 +49,10 @@ Rails.application.routes.draw do
   #   collection do
       get 'chart/index', to: 'chart#index'
       get 'chart/show_total', to: 'chart#show_total'
-      # post 'chart/show_week', to: 'charts#show_week'
+      get 'chart/show_day(/:name)', to: 'chart#show_day'
+      get 'chart/show_week(/:name)', to: 'chart#show_week'
       get 'chart/show_month(/:name)', to: 'chart#show_month'
-      post 'chart/show_year(/:name)', to: 'chart#show_year'
+      get 'chart/show_year(/:name)', to: 'chart#show_year'
     # end
   # end
 end
