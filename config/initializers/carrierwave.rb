@@ -17,5 +17,4 @@ CarrierWave.configure do |config|
 
   config.fog_directory  = 'used-picks'
   config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/used-picks'
-  end
 end
