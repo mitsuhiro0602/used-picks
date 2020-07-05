@@ -129,6 +129,7 @@ class ItemController < ApplicationController
         :size_id,
         :item_state_id,
         :material,
+        # :tag_id,
         :exhibit_day,
         :initial_price,
         brand_attributes: [
