@@ -31,4 +31,9 @@ class Item < ApplicationRecord
     Like.find_by(user_id: user.id, item_id: id)
   end
 
+  def self.search(name)
+    return Item.all() unless name
+    Item.where('name LIKE ?', "%#{name}%")
+  end
+
 end

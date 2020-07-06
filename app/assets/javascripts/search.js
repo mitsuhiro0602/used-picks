@@ -1,32 +1,32 @@
-$(function () {
-  const inputForm = $("#searching-form");
-  const url = '/item/search';
+$(function() {
+  const inputForm = $(".search-form");
+  const url = location.href;
   const search_list = $('.itemlist');
 
-  function appendItem(item) {
-    var html = `<div class="itemlist">
-                  <a href="/item/${item.id}" title="${ item.name }" class="itemlist__link"</a>
-                    <div class="itemlist__image" style="background-image: url(${ item.image_url });" title="${ item.name }"></div>
-                    <h3 class="name" text-overflow>
-                      <span>${ item.name }</span>
-                    </h3>
-                </div>`
+  function builtHTML(item) {
+    let html = `
+    　　<li>${item.name}</li>
+    　　<div class="content_post" style="background-image: url(${item.image});">
+    　　<li>${item.initial_price}</li>
+    `
+    search_list.append(html);
+  }
 
+  function NoResult(message) {
+    let html = `<li>${message}</li>`
     search_list.append(html);
   }
-  function appendErrMsgToHTML(msg) {
-    var html = `<div class= 'name' >${ msg }</div>`
-    search_list.append(html);
-  }
-  // フォームに入力すると発火する
+
+
+  　// フォームに入力すると発火する
   inputForm.on("keyup", function(){
-    var target = inputForm.val();
+    const target = $(this).val();
     search(target);
     console.log(target);
   });
 
-  // ajaxの処理
-  function search(target){
+  function search(target) {
+ 　　 // ajaxの処理
     $.ajax({
       type: 'GET',
       url: url,
@@ -37,16 +37,17 @@ $(function () {
       console.log(items);
       search_list.empty(); //再度検索した際の前のデータを消す処理
       if (items.length !== 0){
+        // debugger
         items.forEach(function(item) { //dataは配列型に格納されているEach文を返す
-          appendItem(item);
+          builtHTML(item);
         });
-      } else {
-        appendErrMsgToHTML('該当する商品はありません')
+      }
+      else {
+        NoResult('該当する商品はありません')
       }
     })
-    .fail(function(data){
+    .fail(function(item){
       alert('非同期通信に失敗しました');
     })
   }
 });
-

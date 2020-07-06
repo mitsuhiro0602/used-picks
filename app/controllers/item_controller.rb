@@ -19,11 +19,11 @@ class ItemController < ApplicationController
       # @category_parent_array = Category.where(ancestry: nil)
     end
 
-    def searh
-      @items = Item.where(['name LIKE (?)', "%#{params[:keyword]}%"] ).limit(20)
+    def search
+      @items = Item.where('name LIKE(?)', "%#{params[:keyword]}%")
       respond_to do |format|
         format.html
-        format.json
+        format.json { render 'search', json: @items }
       end
     end
 
