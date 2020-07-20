@@ -1,4 +1,4 @@
-$(function(){
+$(document).on('turbolinks:load',function(){
   // DataTransferオブジェクトでデータを格納する箱を作る
   var dataBox = new DataTransfer();
   // querySelectorfile_fieldを取得する
