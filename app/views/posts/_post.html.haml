@@ -1,0 +1,12 @@
+.box__pickup
+  %h2.box__pickup__category_title
+    説明文一覧
+  .items
+    .itemslists
+      - @posts.each do |post|
+        .itemlist
+          = link_to post_path(id: post.id), class: "itemlist__link" do
+            = @items.name
+            %h3.name
+              = post.item_id
+              = post.title

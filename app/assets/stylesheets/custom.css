@@ -3,7 +3,7 @@ body {
 }
 
 .header {
-  background: #026aa7;
+  background: #3ccace;
   padding: 10px;
 }
 
@@ -60,8 +60,17 @@ body {
   font-size: 20px;
 }
 
+.header .nav .header_menu__inner .post-new:after {
+  font-weight: bold;
+  font-family: "Font Awesome 5 Free";
+  content: "\f304";
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 20px;
+}
+
 .submitBtn {
-  background: #29b744;
+  background: #3ccace;
   color: #fff;
   width: 200px;
   margin-top: 20px;
@@ -77,6 +86,6 @@ body {
 }
 
 .accountPage_link > a {
-  color: #0075c1;
+  color: #3ccace;
 }
 /*# sourceMappingURL=custom.css.map */

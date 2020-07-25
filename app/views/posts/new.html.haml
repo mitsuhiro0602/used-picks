@@ -7,9 +7,13 @@
     -#   タイトル挿入
     = form_for(@post, class: 'item-main__form') do |f|
       .item-main__content
+        .demo_btn
+          タイトルを挿入する
+        .demo_btn
+          本文を挿入する
         .item-main__content-form-group
           .item-main__content-head
-            = f.label '商品名' 
+            = f.label '商品名'
             %span.form-require
               必須
             = f.collection_select(:item_id, Item.all, :id, :name, {prompt: "---"}, {class: 'item-main__content-select-default'} )

@@ -1,6 +1,9 @@
 class PostsController < ApplicationController
   def index
-    @psots = Post.all
+    @posts = Post.all
+    @user = current_user.nickname
+    @items = Item.all
+    # @item = Post.find_by(id: テスト)
   end
 
   def new
